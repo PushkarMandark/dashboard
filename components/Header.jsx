@@ -25,8 +25,15 @@ export default function Header() {
   const megaMenuRef = useRef(null);
   const profileMenuRef = useRef(null);
   const notificationMenuRef = useRef(null);
+  const headerRef = useRef(null);
+  const [headerHeight, setHeaderHeight] = useState(0);
 
-  // Close dropdowns when clicking outside
+  useEffect(() => {
+    if (headerRef.current) {
+      setHeaderHeight(headerRef.current.offsetHeight);
+    }
+  }, []);
+
   useEffect(() => {
     function handleClickOutside(event) {
       if (megaMenuRef.current && !megaMenuRef.current.contains(event.target)) {
@@ -78,7 +85,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="container mx-auto z-50 w-full bg-white border-b shadow-sm">
+    <header ref={headerRef} className="container mx-auto z-[50] w-full bg-white border-b shadow-sm relative">
       <div className="flex items-center justify-between ">
         {/* Left Section */}
         <div className="flex items-center gap-4">
@@ -112,7 +119,7 @@ export default function Header() {
           </div>
 
           {/* Desktop Mega Menu */}
-          <div ref={megaMenuRef} className="hidden lg:block relative ml-8 static">
+          <div ref={megaMenuRef} className="hidden lg:block relative ml-8">
             <button
               className="flex items-center gap-1 text-gray-700 hover:text-gray-900 py-4"
               onClick={() => setMegaMenu(!megaMenu)}
@@ -122,7 +129,10 @@ export default function Header() {
             </button>
 
             {megaMenu && (
-              <div className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-[800px] bg-white rounded-lg shadow-lg border p-6 z-50">
+              <div 
+                style={{ position: "fixed", top: `${headerHeight}px` }}
+                className="left-1/2 transform -translate-x-1/2 w-[800px] bg-white rounded-lg shadow-lg border p-6 z-[60]"
+              >
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   <div>
                     <h3 className="font-semibold mb-4 text-gray-900">UI Components</h3>
@@ -160,6 +170,31 @@ export default function Header() {
           <button className="lg:hidden p-2 hover:bg-gray-100 rounded-full">
             <Search className="h-5 w-5 text-gray-600" />
           </button>
+
+          {/* Desktop Only Items */}
+          <div className="hidden lg:flex items-center gap-4">
+            <button className="flex items-center gap-2">
+              <Image
+                src="/images/us-flag.png"
+                alt="US Flag"
+                width={20}
+                height={15}
+                className="rounded"
+              />
+              <ChevronDown className="h-4 w-4" />
+            </button>
+
+            <button className="p-2 hover:bg-gray-100 rounded-full">
+              <Grid className="h-5 w-5 text-gray-600" />
+            </button>
+
+            <button 
+              className="p-2 hover:bg-gray-100 rounded-full"
+              onClick={toggleFullscreen}
+            >
+              <Maximize className="h-5 w-5 text-gray-600" />
+            </button>
+          </div>
 
           {/* Notifications */}
           <div ref={notificationMenuRef} className="relative">
@@ -267,31 +302,6 @@ export default function Header() {
               </div>
             )}
           </div>
-
-          {/* Desktop Only Items */}
-          <div className="hidden lg:flex items-center gap-4">
-            <button className="flex items-center gap-2">
-              <Image
-                src="/images/us-flag.png"
-                alt="US Flag"
-                width={20}
-                height={15}
-                className="rounded"
-              />
-              <ChevronDown className="h-4 w-4" />
-            </button>
-
-            <button className="p-2 hover:bg-gray-100 rounded-full">
-              <Grid className="h-5 w-5 text-gray-600" />
-            </button>
-
-            <button 
-              className="p-2 hover:bg-gray-100 rounded-full"
-              onClick={toggleFullscreen}
-            >
-              <Maximize className="h-5 w-5 text-gray-600" />
-            </button>
-          </div>
         </div>
       </div>
 
@@ -319,8 +329,5 @@ export default function Header() {
     </header>
   );
 }
-
-
-
 
 
