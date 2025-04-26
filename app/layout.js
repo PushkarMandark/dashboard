@@ -18,11 +18,12 @@ export default function RootLayout({ children }) {
       <body className={`${poppins.variable} antialiased font-poppins`}>
         <Provider store={store}>
           <div className="sticky top-0 z-50 w-full bg-white">
-            <Header />
-            <SubHeader />
+            <div className="w-full">
+              <Header />
+              <SubHeader isMobileView={false} /> {/* Desktop version */}
+            </div>
           </div>
-          <main className="container mx-auto">
-
+          <main>
             {children}
           </main>
         </Provider>
@@ -30,9 +31,5 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
-
-
-
-
 
 

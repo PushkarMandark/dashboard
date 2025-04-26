@@ -8,6 +8,42 @@
   .bg-primary-dark {
     @apply bg-primary/90;
   }
+  .container-custom {
+    @apply w-full px-4 mx-auto;
+    
+    /* Default for mobile (up to 640px) */
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    
+    /* SM breakpoint (640px) */
+    @media (min-width: 640px) {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    
+    /* MD breakpoint (768px) */
+    @media (min-width: 768px) {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    
+    /* LG breakpoint (1024px) */
+    @media (min-width: 1024px) {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+    
+    /* XL breakpoint (1280px) */
+    @media (min-width: 1280px) {
+      width: 85%;
+    }
+    
+    /* 2XL breakpoint (1536px) */
+    @media (min-width: 1536px) {
+      width: 1600px; /* Fixed width for larger screens */
+    }
+  }
 }
 
 @layer base {
@@ -66,7 +102,13 @@
     font-family: var(--font-poppins), sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+  html {
+    font-size: 14px; /* This would explicitly set the base font size */
+  }
 }
+
+
+
 
 
 

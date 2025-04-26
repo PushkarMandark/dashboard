@@ -3,11 +3,10 @@ import Link from "next/link";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
-export default function SubHeader() {
+export default function SubHeader({ showMobileMenu = false, isMobileView = false }) {
   const [activeMenu, setActiveMenu] = useState(null);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
   const [activeChildMenu, setActiveChildMenu] = useState(null);
-  const [mobileSubMenu, setMobileSubMenu] = useState(false);
   const [mobileActiveMenus, setMobileActiveMenus] = useState({
     level1: null,
     level2: null,
@@ -137,88 +136,86 @@ export default function SubHeader() {
     });
   };
 
+  // If it's mobile view, only show when showMobileMenu is true
+  // If it's desktop view, always show
+  // const shouldShow = isMobileView ? showMobileMenu : true;
+
   return (
-    <div className="w-full bg-primary text-white">
-      <div className="container mx-auto  ">
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:block">
-          <div className="flex">
-            {menuItems.map((menu) => (
-              <div
-                key={menu.id}
-                className="relative group"
-                onMouseEnter={() => handleMenuEnter(menu.id)}
-                onMouseLeave={handleMenuLeave}
-              >
-                <button className="flex items-center gap-2 px-4 py-4 hover:bg-primary-dark">
-                  <span>{menu.icon}</span>
-                  <span>{menu.label}</span>
-                  <ChevronDown className="h-4 w-4" />
-                </button>
+    <div className={`w-full bg-primary text-white ${isMobileView ? "lg:hidden" : ""}`}>
+      <div className="container-custom">
+        {/* Desktop Navigation - Only show when not in mobile view */}
+        {!isMobileView && (
+          <nav className="hidden lg:block">
+            <div className="flex">
+              {menuItems.map((menu) => (
+                <div
+                  key={menu.id}
+                  className="relative group"
+                  onMouseEnter={() => handleMenuEnter(menu.id)}
+                  onMouseLeave={handleMenuLeave}
+                >
+                  <button className="flex items-center gap-2 px-4 py-4 hover:bg-primary-dark">
+                    <span>{menu.icon}</span>
+                    <span>{menu.label}</span>
+                    <ChevronDown className="h-4 w-4" />
+                  </button>
 
-                {activeMenu === menu.id && (
-                  <div className="absolute top-full left-0 w-64 bg-white shadow-lg text-gray-800">
-                    {menu.items.map((subMenu) => (
-                      <div
-                        key={subMenu.label}
-                        className="relative"
-                        onMouseEnter={() => handleSubMenuEnter(subMenu.label)}
-                      >
-                        <button className="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100">
-                          <span>{subMenu.label}</span>
-                          <ChevronRight className="h-4 w-4" />
-                        </button>
+                  {activeMenu === menu.id && (
+                    <div className="absolute top-full left-0 w-64 bg-white shadow-lg text-gray-800">
+                      {menu.items.map((subMenu) => (
+                        <div
+                          key={subMenu.label}
+                          className="relative"
+                          onMouseEnter={() => handleSubMenuEnter(subMenu.label)}
+                        >
+                          <button className="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100">
+                            <span>{subMenu.label}</span>
+                            <ChevronRight className="h-4 w-4" />
+                          </button>
 
-                        {activeSubMenu === subMenu.label && (
-                          <div className="absolute top-0 left-full w-64 bg-white shadow-lg">
-                            {subMenu.items.map((childMenu) => (
-                              <div
-                                key={childMenu.label}
-                                className="relative"
-                                onMouseEnter={() => handleChildMenuEnter(childMenu.label)}
-                              >
-                                <button className="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100">
-                                  <span>{childMenu.label}</span>
-                                  <ChevronRight className="h-4 w-4" />
-                                </button>
+                          {activeSubMenu === subMenu.label && (
+                            <div className="absolute top-0 left-full w-64 bg-white shadow-lg">
+                              {subMenu.items.map((childMenu) => (
+                                <div
+                                  key={childMenu.label}
+                                  className="relative"
+                                  onMouseEnter={() => handleChildMenuEnter(childMenu.label)}
+                                >
+                                  <button className="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100">
+                                    <span>{childMenu.label}</span>
+                                    <ChevronRight className="h-4 w-4" />
+                                  </button>
 
-                                {activeChildMenu === childMenu.label && (
-                                  <div className="absolute top-0 left-full w-64 bg-white shadow-lg">
-                                    {childMenu.children.map((item) => (
-                                      <Link
-                                        key={item}
-                                        href={`/${menu.id}/${subMenu.label.toLowerCase()}/${childMenu.label.toLowerCase()}/${item.toLowerCase().replace(/\s+/g, "-")}`}
-                                        className="block px-4 py-2 hover:bg-gray-100"
-                                      >
-                                        {item}
-                                      </Link>
-                                    ))}
-                                  </div>
-                                )}
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </nav>
+                                  {activeChildMenu === childMenu.label && (
+                                    <div className="absolute top-0 left-full w-64 bg-white shadow-lg">
+                                      {childMenu.children.map((item) => (
+                                        <Link
+                                          key={item}
+                                          href={`/${menu.id}/${subMenu.label.toLowerCase()}/${childMenu.label.toLowerCase()}/${item.toLowerCase().replace(/\s+/g, "-")}`}
+                                          className="block px-4 py-2 hover:bg-gray-100"
+                                        >
+                                          {item}
+                                        </Link>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </nav>
+        )}
 
-        {/* Updated Mobile Navigation */}
-        <nav className="lg:hidden">
-          <button
-            className="flex items-center justify-between w-full px-4 py-3"
-            onClick={() => setMobileSubMenu(!mobileSubMenu)}
-          >
-            <span>Menu</span>
-            <ChevronDown className={`h-4 w-4 transition-transform ${mobileSubMenu ? "rotate-180" : ""}`} />
-          </button>
-
-          {mobileSubMenu && (
+        {/* Mobile Navigation - Only show when in mobile view and showMobileMenu is true */}
+        {isMobileView && showMobileMenu && (
+          <nav className="lg:hidden">
             <div className="border-t border-primary/20">
               {menuItems.map((menu) => (
                 <div key={menu.id} className="border-b border-primary/20">
@@ -295,11 +292,13 @@ export default function SubHeader() {
                 </div>
               ))}
             </div>
-          )}
-        </nav>
+          </nav>
+        )}
       </div>
     </div>
   );
 }
+
+
 
 

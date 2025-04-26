@@ -7,7 +7,6 @@ import {
   ChevronDown, 
   Search, 
   Maximize, 
-  Grid, 
   Menu,
   X,
   User,
@@ -15,6 +14,7 @@ import {
   Settings2,
   HelpCircle,
 } from "lucide-react";
+import SubHeader from "./SubHeader";
 
 export default function Header() {
   const [megaMenu, setMegaMenu] = useState(false);
@@ -84,15 +84,29 @@ export default function Header() {
     },
   ];
 
+  // Add function to handle mobile menu state
+  const handleMobileMenuToggle = () => {
+    setMobileMenu(!mobileMenu);
+    // Prevent body scroll when menu is open
+    document.body.style.overflow = !mobileMenu ? "hidden" : "auto";
+  };
+
+  // Cleanup effect for body scroll
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   return (
-    <header ref={headerRef} className="container mx-auto z-[50] w-full bg-white border-b shadow-sm relative">
-      <div className="flex items-center justify-between ">
+    <header ref={headerRef} className="w-full bg-white border-b shadow-sm relative">
+      <div className="container-custom flex items-center justify-between">
         {/* Left Section */}
         <div className="flex items-center gap-4">
           {/* Mobile Menu Button */}
           <button 
             className="lg:hidden p-2 hover:bg-gray-100 rounded-lg"
-            onClick={() => setMobileMenu(!mobileMenu)}
+            onClick={handleMobileMenuToggle}
           >
             {mobileMenu ? <X /> : <Menu />}
           </button>
@@ -173,21 +187,6 @@ export default function Header() {
 
           {/* Desktop Only Items */}
           <div className="hidden lg:flex items-center gap-4">
-            <button className="flex items-center gap-2">
-              <Image
-                src="/images/us-flag.png"
-                alt="US Flag"
-                width={20}
-                height={15}
-                className="rounded"
-              />
-              <ChevronDown className="h-4 w-4" />
-            </button>
-
-            <button className="p-2 hover:bg-gray-100 rounded-full">
-              <Grid className="h-5 w-5 text-gray-600" />
-            </button>
-
             <button 
               className="p-2 hover:bg-gray-100 rounded-full"
               onClick={toggleFullscreen}
@@ -305,29 +304,48 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Search and Menu */}
+      {/* Mobile Menu Overlay */}
       {mobileMenu && (
-        <div className="lg:hidden border-t bg-white">
-          <div className="p-4">
-            <div className="relative mb-4">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-              <input
-                type="text"
-                placeholder="Search..."
-                className="w-full pl-10 pr-4 py-2 bg-gray-50 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary"
-              />
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 lg:hidden">
+          <div className="fixed inset-y-0 left-0 w-[280px] bg-white shadow-xl overflow-y-auto">
+            {/* Mobile Menu Header */}
+            <div className="p-4 border-b">
+              <div className="flex items-center justify-between">
+                <Link href="/" className="flex items-center" onClick={handleMobileMenuToggle}>
+                  <Image 
+                    src="/images/logo.png" 
+                    alt="Skote" 
+                    width={100} 
+                    height={30}
+                  />
+                </Link>
+                <button 
+                  className="p-2 hover:bg-gray-100 rounded-lg"
+                  onClick={handleMobileMenuToggle}
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+              {/* Mobile Search */}
+              <div className="mt-4 relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="w-full pl-10 pr-4 py-2 bg-gray-50 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary"
+                />
+              </div>
             </div>
-            <nav className="space-y-1">
-              <Link href="/dashboard" className="block px-4 py-2 hover:bg-gray-50 rounded-lg">Dashboard</Link>
-              <Link href="/apps" className="block px-4 py-2 hover:bg-gray-50 rounded-lg">Apps</Link>
-              <Link href="/components" className="block px-4 py-2 hover:bg-gray-50 rounded-lg">Components</Link>
-              <Link href="/pages" className="block px-4 py-2 hover:bg-gray-50 rounded-lg">Pages</Link>
-            </nav>
+
+            {/* SubHeader for mobile menu */}
+            <SubHeader showMobileMenu={true} isMobileView={true} />
           </div>
         </div>
       )}
     </header>
   );
 }
+
+
 
 
