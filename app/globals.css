@@ -107,6 +107,21 @@
   }
 }
 
+@layer base {
+  /* Remove or comment out the previous button styles */
+  
+  /* Add new specific styles for the desktop menu */
+  .desktop-nav-button {
+    color: #fff9; /* Default slightly transparent white */
+    transition: color 0.2s ease-in-out;
+  }
+
+  .desktop-nav-button:hover,
+  .desktop-nav-button[aria-expanded="true"] {
+    color: #ffff; /* Full white on hover/active */
+  }
+}
+
 
 
 

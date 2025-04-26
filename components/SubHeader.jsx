@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import { BsCollection } from "react-icons/bs";
+import { BiHomeCircle, BiCog } from "react-icons/bi";
 
 export default function SubHeader({ showMobileMenu = false, isMobileView = false }) {
   const [activeMenu, setActiveMenu] = useState(null);
@@ -33,73 +35,100 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
     setActiveChildMenu(null);
   };
 
-  // Updated menu structure with child menus
+  // Updated menu structure with URLs
   const menuItems = [
     {
       id: "dashboard",
       label: "Dashboard",
-      icon: "📊",
+      icon: <BiHomeCircle/>,
+      url: "/dashboard", // URL only because no children
+    },
+    {
+      id: "bugs",
+      label: "Bugs",
+      icon: <BsCollection/>,
       items: [
         {
-          label: "Analytics",
+          label: "Projects",
           items: [
             {
-              label: "Overview",
-              children: ["Daily", "Weekly", "Monthly"],
+              label: "Active",
+              items: [
+                {
+                  label: "Critical",
+                  url: "/bugs/projects/active/critical",
+                },
+                {
+                  label: "High",
+                  url: "/bugs/projects/active/high",
+                },
+                {
+                  label: "Medium",
+                  url: "/bugs/projects/active/medium",
+                },
+              ],
             },
             {
-              label: "Real-time",
-              children: ["Traffic", "Sales", "Users"],
+              label: "Resolved",
+              url: "/bugs/projects/resolved",
             },
             {
-              label: "Historical",
-              children: ["Reports", "Exports", "Archives"],
+              label: "Backlog",
+              url: "/bugs/projects/backlog",
             },
           ],
         },
         {
-          label: "E-commerce",
+          label: "My Assignments",
+          url: "/bugs/my-assignments",
+        },
+        {
+          label: "Reports",
           items: [
             {
-              label: "Products",
-              children: ["Catalog", "Inventory", "Categories"],
+              label: "Analytics",
+              url: "/bugs/reports/analytics",
             },
             {
-              label: "Sales",
-              children: ["Orders", "Shipments", "Returns"],
+              label: "Statistics",
+              url: "/bugs/reports/statistics",
             },
           ],
         },
       ],
     },
     {
-      id: "apps",
-      label: "Apps",
-      icon: "📱",
+      id: "settings",
+      label: "Settings",
+      icon: <BiCog/>,
       items: [
         {
-          label: "Communication",
+          label: "Project Settings",
           items: [
             {
-              label: "Email",
-              children: ["Inbox", "Sent", "Drafts"],
+              label: "Workflows",
+              url: "/settings/project/workflows",
             },
             {
-              label: "Chat",
-              children: ["Direct", "Groups", "Channels"],
+              label: "Labels",
+              url: "/settings/project/labels",
+            },
+            {
+              label: "Templates",
+              url: "/settings/project/templates",
             },
           ],
         },
         {
-          label: "Project Management",
+          label: "User Management",
           items: [
             {
-              label: "Tasks",
-              children: ["My Tasks", "Team Tasks", "Calendar"],
+              label: "Teams",
+              url: "/settings/users/teams",
             },
             {
-              label: "Kanban",
-              children: ["Boards", "Templates", "Archives"],
+              label: "Permissions",
+              url: "/settings/users/permissions",
             },
           ],
         },
@@ -140,6 +169,141 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
   // If it's desktop view, always show
   // const shouldShow = isMobileView ? showMobileMenu : true;
 
+  const renderDesktopMenuItem = (menu) => {
+    const hasChildren = menu.items && menu.items.length > 0;
+    
+    const buttonContent = (
+      <>
+        <span>{menu.icon}</span>
+        <span>{menu.label}</span>
+        {hasChildren && <ChevronDown className="h-4 w-4" />}
+      </>
+    );
+
+    return (
+      <div
+        key={menu.id}
+        className="relative group"
+        onMouseEnter={() => hasChildren && handleMenuEnter(menu.id)}
+        onMouseLeave={handleMenuLeave}
+      >
+        {menu.url ? (
+          <Link 
+            href={menu.url}
+            className="desktop-nav-button flex items-center gap-2 px-4 py-4 hover:bg-primary-dark"
+            legacyBehavior={false}
+          >
+            {buttonContent}
+          </Link>
+        ) : (
+          <button 
+            className="desktop-nav-button flex items-center gap-2 px-4 py-4 hover:bg-primary-dark"
+            aria-expanded={activeMenu === menu.id}
+          >
+            {buttonContent}
+          </button>
+        )}
+
+        {hasChildren && activeMenu === menu.id && (
+          <div className="absolute top-full left-0 w-64 bg-white shadow-lg text-gray-800">
+            {menu.items.map((subMenu) => renderDesktopSubMenuItem(subMenu, menu))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderDesktopSubMenuItem = (subMenu, parentMenu) => {
+    const hasChildren = subMenu.items && subMenu.items.length > 0;
+
+    const buttonContent = (
+      <>
+        <span>{subMenu.label}</span>
+        {hasChildren && <ChevronRight className="h-4 w-4" />}
+      </>
+    );
+
+    return (
+      <div
+        key={subMenu.label}
+        className="relative"
+        onMouseEnter={() => hasChildren && handleSubMenuEnter(subMenu.label)}
+      >
+        {subMenu.url ? (
+          <Link
+            href={subMenu.url}
+            className="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100"
+            legacyBehavior={false}
+          >
+            {buttonContent}
+          </Link>
+        ) : (
+          <button 
+            className="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100"
+          >
+            {buttonContent}
+          </button>
+        )}
+
+        {hasChildren && activeSubMenu === subMenu.label && (
+          <div className="absolute top-0 left-full w-64 bg-white shadow-lg">
+            {subMenu.items.map((childMenu) => renderDesktopChildMenuItem(childMenu, parentMenu, subMenu))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderDesktopChildMenuItem = (childMenu ) => {
+    const hasChildren = childMenu.items && childMenu.items.length > 0;
+
+    const buttonContent = (
+      <>
+        <span>{childMenu.label}</span>
+        {hasChildren && <ChevronRight className="h-4 w-4" />}
+      </>
+    );
+
+    return (
+      <div
+        key={childMenu.label}
+        className="relative"
+        onMouseEnter={() => hasChildren && handleChildMenuEnter(childMenu.label)}
+      >
+        {childMenu.url ? (
+          <Link
+            href={childMenu.url}
+            className="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100"
+            legacyBehavior={false}
+          >
+            {buttonContent}
+          </Link>
+        ) : (
+          <button 
+            className="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100"
+          >
+            {buttonContent}
+          </button>
+        )}
+
+        {hasChildren && activeChildMenu === childMenu.label && (
+          <div className="absolute top-0 left-full w-64 bg-white shadow-lg">
+            {childMenu.items.map((item) => (
+              <Link
+                key={item.label}
+                href={item.url}
+                className="block px-4 py-2 hover:bg-gray-100"
+                legacyBehavior={false}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className={`w-full bg-primary text-white ${isMobileView ? "lg:hidden" : ""}`}>
       <div className="container-custom">
@@ -147,68 +311,7 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
         {!isMobileView && (
           <nav className="hidden lg:block">
             <div className="flex">
-              {menuItems.map((menu) => (
-                <div
-                  key={menu.id}
-                  className="relative group"
-                  onMouseEnter={() => handleMenuEnter(menu.id)}
-                  onMouseLeave={handleMenuLeave}
-                >
-                  <button className="flex items-center gap-2 px-4 py-4 hover:bg-primary-dark">
-                    <span>{menu.icon}</span>
-                    <span>{menu.label}</span>
-                    <ChevronDown className="h-4 w-4" />
-                  </button>
-
-                  {activeMenu === menu.id && (
-                    <div className="absolute top-full left-0 w-64 bg-white shadow-lg text-gray-800">
-                      {menu.items.map((subMenu) => (
-                        <div
-                          key={subMenu.label}
-                          className="relative"
-                          onMouseEnter={() => handleSubMenuEnter(subMenu.label)}
-                        >
-                          <button className="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100">
-                            <span>{subMenu.label}</span>
-                            <ChevronRight className="h-4 w-4" />
-                          </button>
-
-                          {activeSubMenu === subMenu.label && (
-                            <div className="absolute top-0 left-full w-64 bg-white shadow-lg">
-                              {subMenu.items.map((childMenu) => (
-                                <div
-                                  key={childMenu.label}
-                                  className="relative"
-                                  onMouseEnter={() => handleChildMenuEnter(childMenu.label)}
-                                >
-                                  <button className="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100">
-                                    <span>{childMenu.label}</span>
-                                    <ChevronRight className="h-4 w-4" />
-                                  </button>
-
-                                  {activeChildMenu === childMenu.label && (
-                                    <div className="absolute top-0 left-full w-64 bg-white shadow-lg">
-                                      {childMenu.children.map((item) => (
-                                        <Link
-                                          key={item}
-                                          href={`/${menu.id}/${subMenu.label.toLowerCase()}/${childMenu.label.toLowerCase()}/${item.toLowerCase().replace(/\s+/g, "-")}`}
-                                          className="block px-4 py-2 hover:bg-gray-100"
-                                        >
-                                          {item}
-                                        </Link>
-                                      ))}
-                                    </div>
-                                  )}
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
+              {menuItems.map(renderDesktopMenuItem)}
             </div>
           </nav>
         )}
@@ -219,75 +322,88 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
             <div className="border-t border-primary/20">
               {menuItems.map((menu) => (
                 <div key={menu.id} className="border-b border-primary/20">
-                  {/* Level 1 */}
-                  <button
-                    className="flex items-center justify-between w-full px-4 py-3"
-                    onClick={() => handleMobileMenuClick("level1", menu.id)}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>{menu.icon}</span>
-                      <span>{menu.label}</span>
-                    </span>
-                    <ChevronDown className={`h-4 w-4 transition-transform ${mobileActiveMenus.level1 === menu.id ? "rotate-180" : ""}`} />
-                  </button>
+                  {menu.url && !menu.items?.length ? (
+                    <Link
+                      href={menu.url}
+                      className="flex items-center justify-between w-full px-4 py-3"
+                    >
+                      <span className="flex items-center gap-2">
+                        <span>{menu.icon}</span>
+                        <span>{menu.label}</span>
+                      </span>
+                    </Link>
+                  ) : (
+                    <>
+                      <button
+                        className="flex items-center justify-between w-full px-4 py-3"
+                        onClick={() => handleMobileMenuClick("level1", menu.id)}
+                      >
+                        <span className="flex items-center gap-2">
+                          <span>{menu.icon}</span>
+                          <span>{menu.label}</span>
+                        </span>
+                        <ChevronDown className={`h-4 w-4 transition-transform ${mobileActiveMenus.level1 === menu.id ? "rotate-180" : ""}`} />
+                      </button>
 
-                  {mobileActiveMenus.level1 === menu.id && (
-                    <div className="bg-primary/10">
-                      {menu.items.map((subMenu) => (
-                        <div key={subMenu.label}>
-                          {/* Level 2 */}
-                          <button
-                            className="flex items-center justify-between w-full px-6 py-2"
-                            onClick={() => handleMobileMenuClick("level2", subMenu.label)}
-                          >
-                            <span>{subMenu.label}</span>
-                            <ChevronDown className={`h-4 w-4 transition-transform ${mobileActiveMenus.level2 === subMenu.label ? "rotate-180" : ""}`} />
-                          </button>
+                      {mobileActiveMenus.level1 === menu.id && (
+                        <div className="bg-primary/10">
+                          {menu.items.map((subMenu) => (
+                            <div key={subMenu.label}>
+                              {/* Level 2 */}
+                              <button
+                                className="flex items-center justify-between w-full px-6 py-2"
+                                onClick={() => handleMobileMenuClick("level2", subMenu.label)}
+                              >
+                                <span>{subMenu.label}</span>
+                                <ChevronDown className={`h-4 w-4 transition-transform ${mobileActiveMenus.level2 === subMenu.label ? "rotate-180" : ""}`} />
+                              </button>
 
-                          {mobileActiveMenus.level2 === subMenu.label && (
-                            <div className="bg-primary/20">
-                              {subMenu.items.map((childMenu) => (
-                                <div key={childMenu.label}>
-                                  {/* Level 3 */}
-                                  <button
-                                    className="flex items-center justify-between w-full px-8 py-2"
-                                    onClick={() => handleMobileMenuClick("level3", childMenu.label)}
-                                  >
-                                    <span>{childMenu.label}</span>
-                                    <ChevronDown className={`h-4 w-4 transition-transform ${mobileActiveMenus.level3 === childMenu.label ? "rotate-180" : ""}`} />
-                                  </button>
+                              {mobileActiveMenus.level2 === subMenu.label && (
+                                <div className="bg-primary/20">
+                                  {subMenu.items.map((childMenu) => (
+                                    <div key={childMenu.label}>
+                                      {/* Level 3 */}
+                                      <button
+                                        className="flex items-center justify-between w-full px-8 py-2"
+                                        onClick={() => handleMobileMenuClick("level3", childMenu.label)}
+                                      >
+                                        <span>{childMenu.label}</span>
+                                        <ChevronDown className={`h-4 w-4 transition-transform ${mobileActiveMenus.level3 === childMenu.label ? "rotate-180" : ""}`} />
+                                      </button>
 
-                                  {mobileActiveMenus.level3 === childMenu.label && (
-                                    <div className="bg-primary/30">
-                                      {childMenu.children.map((item) => (
-                                        <div key={item}>
-                                          {/* Level 4 (Final Items) */}
-                                          <button
-                                            className="flex items-center justify-between w-full px-10 py-2"
-                                            onClick={() => handleMobileMenuClick("level4", item)}
-                                          >
-                                            <span>{item}</span>
-                                          </button>
-                                          
-                                          {mobileActiveMenus.level4 === item && (
-                                            <Link
-                                              href={`/${menu.id}/${subMenu.label.toLowerCase()}/${childMenu.label.toLowerCase()}/${item.toLowerCase().replace(/\s+/g, "-")}`}
-                                              className="block px-12 py-2 bg-primary/40 hover:bg-primary/50"
-                                            >
-                                              Go to {item}
-                                            </Link>
-                                          )}
+                                      {mobileActiveMenus.level3 === childMenu.label && (
+                                        <div className="bg-primary/30">
+                                          {childMenu.children.map((item) => (
+                                            <div key={item}>
+                                              {/* Level 4 (Final Items) */}
+                                              <button
+                                                className="flex items-center justify-between w-full px-10 py-2"
+                                                onClick={() => handleMobileMenuClick("level4", item)}
+                                              >
+                                                <span>{item}</span>
+                                              </button>
+                                              
+                                              {mobileActiveMenus.level4 === item && (
+                                                <Link
+                                                  href={`/${menu.id}/${subMenu.label.toLowerCase()}/${childMenu.label.toLowerCase()}/${item.toLowerCase().replace(/\s+/g, "-")}`}
+                                                  className="block px-12 py-2 bg-primary/40 hover:bg-primary/50"
+                                                >
+                                                  Go to {item}
+                                                </Link>
+                                              )}
+                                            </div>
+                                          ))}
                                         </div>
-                                      ))}
+                                      )}
                                     </div>
-                                  )}
+                                  ))}
                                 </div>
-                              ))}
+                              )}
                             </div>
-                          )}
+                          ))}
                         </div>
-                      ))}
-                    </div>
+                      )}
+                    </>
                   )}
                 </div>
               ))}
