@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, memo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { 
@@ -16,12 +16,15 @@ import {
 } from "lucide-react";
 import SubHeader from "./SubHeader";
 
-export default function Header() {
-  const [megaMenu, setMegaMenu] = useState(false);
-  const [mobileMenu, setMobileMenu] = useState(false);
-  const [profileMenu, setProfileMenu] = useState(false);
-  const [notificationMenu, setNotificationMenu] = useState(false);
-  
+// Memoize the Header component
+const Header = () => {
+  const [menuStates, setMenuStates] = useState({
+    megaMenu: false,
+    mobileMenu: false,
+    profileMenu: false,
+    notificationMenu: false,
+  });
+
   const megaMenuRef = useRef(null);
   const profileMenuRef = useRef(null);
   const notificationMenuRef = useRef(null);
@@ -37,13 +40,22 @@ export default function Header() {
   useEffect(() => {
     function handleClickOutside(event) {
       if (megaMenuRef.current && !megaMenuRef.current.contains(event.target)) {
-        setMegaMenu(false);
+        setMenuStates(prev => ({
+          ...prev,
+          megaMenu: false,
+        }));
       }
       if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
-        setProfileMenu(false);
+        setMenuStates(prev => ({
+          ...prev,
+          profileMenu: false,
+        }));
       }
       if (notificationMenuRef.current && !notificationMenuRef.current.contains(event.target)) {
-        setNotificationMenu(false);
+        setMenuStates(prev => ({
+          ...prev,
+          notificationMenu: false,
+        }));
       }
     }
 
@@ -86,9 +98,12 @@ export default function Header() {
 
   // Add function to handle mobile menu state
   const handleMobileMenuToggle = () => {
-    setMobileMenu(!mobileMenu);
+    setMenuStates(prev => ({
+      ...prev,
+      mobileMenu: !prev.mobileMenu,
+    }));
     // Prevent body scroll when menu is open
-    document.body.style.overflow = !mobileMenu ? "hidden" : "auto";
+    document.body.style.overflow = !menuStates.mobileMenu ? "hidden" : "auto";
   };
 
   // Cleanup effect for body scroll
@@ -105,10 +120,12 @@ export default function Header() {
         <div className="flex items-center gap-4">
           {/* Mobile Menu Button */}
           <button 
+            aria-expanded={menuStates.mobileMenu}
+            aria-label="Toggle mobile menu"
             className="lg:hidden p-2 hover:bg-gray-100 rounded-lg"
             onClick={handleMobileMenuToggle}
           >
-            {mobileMenu ? <X /> : <Menu />}
+            {menuStates.mobileMenu ? <X /> : <Menu />}
           </button>
 
           {/* Logo */}
@@ -136,13 +153,16 @@ export default function Header() {
           <div ref={megaMenuRef} className="hidden lg:block relative ml-8">
             <button
               className="flex items-center gap-1 text-gray-700 hover:text-gray-900 py-4"
-              onClick={() => setMegaMenu(!megaMenu)}
+              onClick={() => setMenuStates(prev => ({
+                ...prev,
+                megaMenu: !prev.megaMenu,
+              }))}
             >
               Mega Menu
-              <ChevronDown className={`h-4 w-4 transition-transform ${megaMenu ? "rotate-180" : ""}`} />
+              <ChevronDown className={`h-4 w-4 transition-transform ${menuStates.megaMenu ? "rotate-180" : ""}`} />
             </button>
 
-            {megaMenu && (
+            {menuStates.megaMenu && (
               <div 
                 style={{ position: "fixed", top: `${headerHeight}px` }}
                 className="left-1/2 transform -translate-x-1/2 w-[800px] bg-white rounded-lg shadow-lg border p-6 z-[60]"
@@ -199,7 +219,10 @@ export default function Header() {
           <div ref={notificationMenuRef} className="relative">
             <button 
               className="p-2 hover:bg-gray-100 rounded-full relative"
-              onClick={() => setNotificationMenu(!notificationMenu)}
+              onClick={() => setMenuStates(prev => ({
+                ...prev,
+                notificationMenu: !prev.notificationMenu,
+              }))}
             >
               <Bell className="h-5 w-5 text-gray-600" />
               <span className="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
@@ -207,7 +230,7 @@ export default function Header() {
               </span>
             </button>
 
-            {notificationMenu && (
+            {menuStates.notificationMenu && (
               <div className="absolute right-0 mt-2 w-[280px] lg:w-[320px] bg-white rounded-lg shadow-lg border">
                 <div className="p-4 border-b">
                   <div className="flex items-center justify-between">
@@ -246,7 +269,10 @@ export default function Header() {
           <div ref={profileMenuRef} className="relative">
             <button 
               className="flex items-center gap-2 p-1 lg:p-0"
-              onClick={() => setProfileMenu(!profileMenu)}
+              onClick={() => setMenuStates(prev => ({
+                ...prev,
+                profileMenu: !prev.profileMenu,
+              }))}
             >
               <div className="h-8 w-8 rounded-full bg-gray-200 overflow-hidden">
                 <Image
@@ -259,12 +285,19 @@ export default function Header() {
               </div>
               <div className="hidden lg:flex items-center gap-1">
                 <span className="text-sm font-medium">admin</span>
-                <ChevronDown className={`h-4 w-4 transition-transform ${profileMenu ? "rotate-180" : ""}`} />
+                <ChevronDown className={`h-4 w-4 transition-transform ${menuStates.profileMenu ? "rotate-180" : ""}`} />
               </div>
             </button>
 
-            {profileMenu && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border py-1">
+            {menuStates.profileMenu && (
+              <div 
+                role="menu"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Escape") setMenuStates(prev => ({ ...prev, profileMenu: false }));
+                }}
+                className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border py-1"
+              >
                 <Link 
                   href="/profile"
                   className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -305,7 +338,7 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu Overlay */}
-      {mobileMenu && (
+      {menuStates.mobileMenu && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 lg:hidden">
           <div className="fixed inset-y-0 left-0 w-[280px] bg-white shadow-xl overflow-y-auto">
             {/* Mobile Menu Header */}
@@ -344,8 +377,6 @@ export default function Header() {
       )}
     </header>
   );
-}
+};
 
-
-
-
+export default memo(Header);

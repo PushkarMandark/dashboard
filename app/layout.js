@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "@/lib/store";
 import Header from "@/components/Header";
 import SubHeader from "@/components/SubHeader";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -16,20 +17,23 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${poppins.variable} antialiased font-poppins`}>
-        <Provider store={store}>
-          <div className="sticky top-0 z-50 w-full bg-white">
-            <div className="w-full">
-              <Header />
-              <SubHeader isMobileView={false} /> {/* Desktop version */}
+        <ErrorBoundary fallback="An error occurred. Please try again later.">
+          <Provider store={store}>
+            <div className="sticky top-0 z-50 w-full bg-white">
+              <div className="w-full">
+                <Header />
+                <SubHeader isMobileView={false} />
+              </div>
             </div>
-          </div>
-          <main>
-            {children}
-          </main>
-        </Provider>
+            <main>
+              {children}
+            </main>
+          </Provider>
+        </ErrorBoundary>
       </body>
     </html>
   );
 }
+
 
 
