@@ -5,13 +5,8 @@
 @tailwind utilities;
 
 @layer components {
-  .container-custom {
-    @apply w-full px-4 mx-auto;
-    
-    @media (min-width: 1200px) {
-      width: 85%;
-      max-width: 85%;
-    }
+  .bg-primary-dark {
+    @apply bg-primary/90;
   }
 }
 
@@ -72,6 +67,8 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+
 
 
 

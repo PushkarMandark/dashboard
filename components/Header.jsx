@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { 
   Bell, 
-  Settings, 
   ChevronDown, 
   Search, 
   Maximize, 
@@ -79,90 +78,199 @@ export default function Header() {
   ];
 
   return (
-    <header className="px-4 w-full bg-white border-b shadow-sm">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between py-3">
-          {/* Left Section */}
-          <div className="flex items-center gap-4 lg:gap-8">
-            {/* Logo */}
-            <Link href="/" className="text-xl font-bold flex items-center">
-              <Image 
-                src="/images/logo.png" 
-                alt="Skote" 
-                width={120} 
-                height={40}
-                className="h-8 w-auto"
-              />
-            </Link>
+    <header className="container mx-auto z-50 w-full bg-white border-b shadow-sm">
+      <div className="flex items-center justify-between ">
+        {/* Left Section */}
+        <div className="flex items-center gap-4">
+          {/* Mobile Menu Button */}
+          <button 
+            className="lg:hidden p-2 hover:bg-gray-100 rounded-lg"
+            onClick={() => setMobileMenu(!mobileMenu)}
+          >
+            {mobileMenu ? <X /> : <Menu />}
+          </button>
 
-            {/* Mobile Menu Button */}
-            <button 
-              className="lg:hidden p-2 hover:bg-gray-100 rounded-lg"
-              onClick={() => setMobileMenu(!mobileMenu)}
-            >
-              {mobileMenu ? <X /> : <Menu />}
-            </button>
+          {/* Logo */}
+          <Link href="/" className="flex items-center py-4">
+            <Image 
+              src="/images/logo.png" 
+              alt="Skote" 
+              width={100} 
+              height={30}
+              className=""
+            />
+          </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-8">
-              {/* Search Bar */}
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="pl-10 pr-4 py-2 bg-gray-50 rounded-lg w-64 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                />
-              </div>
-
-              {/* Mega Menu */}
-              <div ref={megaMenuRef} className="relative">
-                <button
-                  className="flex items-center gap-1 text-gray-700 hover:text-gray-900"
-                  onClick={() => setMegaMenu(!megaMenu)}
-                >
-                  Mega Menu
-                  <ChevronDown className={`h-4 w-4 transition-transform ${megaMenu ? "rotate-180" : ""}`} />
-                </button>
-
-                {megaMenu && (
-                  <div className="absolute top-full left-0 mt-2 w-screen max-w-screen-lg bg-white rounded-lg shadow-lg border p-6">
-                    <div className="grid grid-cols-3 gap-8">
-                      <div>
-                        <h3 className="font-semibold mb-4">UI Components</h3>
-                        <ul className="space-y-2">
-                          <li><Link href="/components/buttons" className="hover:text-blue-600">Buttons</Link></li>
-                          <li><Link href="/components/cards" className="hover:text-blue-600">Cards</Link></li>
-                          <li><Link href="/components/forms" className="hover:text-blue-600">Forms</Link></li>
-                        </ul>
-                      </div>
-                      <div>
-                        <h3 className="font-semibold mb-4">Applications</h3>
-                        <ul className="space-y-2">
-                          <li><Link href="/apps/calendar" className="hover:text-blue-600">Calendar</Link></li>
-                          <li><Link href="/apps/chat" className="hover:text-blue-600">Chat</Link></li>
-                          <li><Link href="/apps/email" className="hover:text-blue-600">Email</Link></li>
-                        </ul>
-                      </div>
-                      <div>
-                        <h3 className="font-semibold mb-4">Extra Pages</h3>
-                        <ul className="space-y-2">
-                          <li><Link href="/pages/profile" className="hover:text-blue-600">Profile</Link></li>
-                          <li><Link href="/pages/invoice" className="hover:text-blue-600">Invoice</Link></li>
-                          <li><Link href="/pages/faq" className="hover:text-blue-600">FAQ</Link></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
+          {/* Desktop Search Bar */}
+          <div className="hidden lg:block relative ml-8 py-4">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <input
+              type="text"
+              placeholder="Search..."
+              className="pl-10 pr-4 py-2 bg-[#f3f3f9] rounded-full min-w-72 focus:outline-none focus:ring-1 focus:ring-primary"
+            />
           </div>
 
-          {/* Right Section */}
-          <div className="flex items-center gap-2 lg:gap-4">
-            {/* Country Flag */}
-            <button className="hidden lg:flex items-center gap-2">
+          {/* Desktop Mega Menu */}
+          <div ref={megaMenuRef} className="hidden lg:block relative ml-8 static">
+            <button
+              className="flex items-center gap-1 text-gray-700 hover:text-gray-900 py-4"
+              onClick={() => setMegaMenu(!megaMenu)}
+            >
+              Mega Menu
+              <ChevronDown className={`h-4 w-4 transition-transform ${megaMenu ? "rotate-180" : ""}`} />
+            </button>
+
+            {megaMenu && (
+              <div className="absolute left-1/2 transform -translate-x-1/2 top-full mt-1 w-[800px] bg-white rounded-lg shadow-lg border p-6 z-50">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  <div>
+                    <h3 className="font-semibold mb-4 text-gray-900">UI Components</h3>
+                    <ul className="space-y-2">
+                      <li><Link href="/components/buttons" className="text-gray-600 hover:text-primary block">Buttons</Link></li>
+                      <li><Link href="/components/cards" className="text-gray-600 hover:text-primary block">Cards</Link></li>
+                      <li><Link href="/components/forms" className="text-gray-600 hover:text-primary block">Forms</Link></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-4 text-gray-900">Applications</h3>
+                    <ul className="space-y-2">
+                      <li><Link href="/apps/calendar" className="text-gray-600 hover:text-primary block">Calendar</Link></li>
+                      <li><Link href="/apps/chat" className="text-gray-600 hover:text-primary block">Chat</Link></li>
+                      <li><Link href="/apps/email" className="text-gray-600 hover:text-primary block">Email</Link></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-4 text-gray-900">Extra Pages</h3>
+                    <ul className="space-y-2">
+                      <li><Link href="/pages/profile" className="text-gray-600 hover:text-primary block">Profile</Link></li>
+                      <li><Link href="/pages/invoice" className="text-gray-600 hover:text-primary block">Invoice</Link></li>
+                      <li><Link href="/pages/faq" className="text-gray-600 hover:text-primary block">FAQ</Link></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Right Section */}
+        <div className="flex items-center gap-1 lg:gap-4">
+          {/* Mobile Search Button */}
+          <button className="lg:hidden p-2 hover:bg-gray-100 rounded-full">
+            <Search className="h-5 w-5 text-gray-600" />
+          </button>
+
+          {/* Notifications */}
+          <div ref={notificationMenuRef} className="relative">
+            <button 
+              className="p-2 hover:bg-gray-100 rounded-full relative"
+              onClick={() => setNotificationMenu(!notificationMenu)}
+            >
+              <Bell className="h-5 w-5 text-gray-600" />
+              <span className="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                {notifications.filter(n => !n.isRead).length}
+              </span>
+            </button>
+
+            {notificationMenu && (
+              <div className="absolute right-0 mt-2 w-[280px] lg:w-[320px] bg-white rounded-lg shadow-lg border">
+                <div className="p-4 border-b">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-semibold">Notifications</h3>
+                    <span className="text-sm text-blue-600 cursor-pointer">Mark all as read</span>
+                  </div>
+                </div>
+                <div className="max-h-96 overflow-y-auto">
+                  {notifications.map((notification) => (
+                    <div 
+                      key={notification.id}
+                      className={`p-4 border-b hover:bg-gray-50 cursor-pointer ${
+                        notification.isRead ? "bg-white" : "bg-blue-50"
+                      }`}
+                    >
+                      <div className="flex gap-4">
+                        <div className="flex-1">
+                          <h4 className="font-medium">{notification.title}</h4>
+                          <p className="text-sm text-gray-600">{notification.desc}</p>
+                          <span className="text-xs text-gray-500">{notification.time}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="p-4 text-center border-t">
+                  <Link href="/notifications" className="text-blue-600 hover:text-blue-700">
+                      View All Notifications
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* User Profile */}
+          <div ref={profileMenuRef} className="relative">
+            <button 
+              className="flex items-center gap-2 p-1 lg:p-0"
+              onClick={() => setProfileMenu(!profileMenu)}
+            >
+              <div className="h-8 w-8 rounded-full bg-gray-200 overflow-hidden">
+                <Image
+                  src="/images/avatar.jpg"
+                  alt="User"
+                  width={32}
+                  height={32}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div className="hidden lg:flex items-center gap-1">
+                <span className="text-sm font-medium">admin</span>
+                <ChevronDown className={`h-4 w-4 transition-transform ${profileMenu ? "rotate-180" : ""}`} />
+              </div>
+            </button>
+
+            {profileMenu && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border py-1">
+                <Link 
+                  href="/profile"
+                  className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  <User className="h-4 w-4" />
+                    Profile
+                </Link>
+                <Link 
+                  href="/settings"
+                  className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  <Settings2 className="h-4 w-4" />
+                    Settings
+                </Link>
+                <Link 
+                  href="/help"
+                  className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  <HelpCircle className="h-4 w-4" />
+                    Help Center
+                </Link>
+                <div className="border-t">
+                  <button 
+                    className="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-gray-100 w-full"
+                    onClick={() => {
+                      // Add your logout logic here
+                      console.log("Logging out...");
+                    }}
+                  >
+                    <LogOut className="h-4 w-4" />
+                      Logout
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Desktop Only Items */}
+          <div className="hidden lg:flex items-center gap-4">
+            <button className="flex items-center gap-2">
               <Image
                 src="/images/us-flag.png"
                 alt="US Flag"
@@ -173,153 +281,37 @@ export default function Header() {
               <ChevronDown className="h-4 w-4" />
             </button>
 
-            {/* Grid */}
-            <button className="p-2 hover:bg-gray-100 rounded-full hidden lg:block">
+            <button className="p-2 hover:bg-gray-100 rounded-full">
               <Grid className="h-5 w-5 text-gray-600" />
             </button>
 
-            {/* Maximize */}
             <button 
-              className="p-2 hover:bg-gray-100 rounded-full hidden lg:block"
+              className="p-2 hover:bg-gray-100 rounded-full"
               onClick={toggleFullscreen}
             >
               <Maximize className="h-5 w-5 text-gray-600" />
-            </button>
-
-            {/* Notifications */}
-            <div ref={notificationMenuRef} className="relative">
-              <button 
-                className="p-2 hover:bg-gray-100 rounded-full relative"
-                onClick={() => setNotificationMenu(!notificationMenu)}
-              >
-                <Bell className="h-5 w-5 text-gray-600" />
-                <span className="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                  {notifications.filter(n => !n.isRead).length}
-                </span>
-              </button>
-
-              {notificationMenu && (
-                <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border">
-                  <div className="p-4 border-b">
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-semibold">Notifications</h3>
-                      <span className="text-sm text-blue-600 cursor-pointer">Mark all as read</span>
-                    </div>
-                  </div>
-                  <div className="max-h-96 overflow-y-auto">
-                    {notifications.map((notification) => (
-                      <div 
-                        key={notification.id}
-                        className={`p-4 border-b hover:bg-gray-50 cursor-pointer ${
-                          notification.isRead ? "bg-white" : "bg-blue-50"
-                        }`}
-                      >
-                        <div className="flex gap-4">
-                          <div className="flex-1">
-                            <h4 className="font-medium">{notification.title}</h4>
-                            <p className="text-sm text-gray-600">{notification.desc}</p>
-                            <span className="text-xs text-gray-500">{notification.time}</span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="p-4 text-center border-t">
-                    <Link href="/notifications" className="text-blue-600 hover:text-blue-700">
-                      View All Notifications
-                    </Link>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* User Profile */}
-            <div ref={profileMenuRef} className="relative">
-              <button 
-                className="flex items-center gap-2"
-                onClick={() => setProfileMenu(!profileMenu)}
-              >
-                <div className="h-8 w-8 rounded-full bg-gray-200 overflow-hidden">
-                  <Image
-                    src="/images/avatar.jpg"
-                    alt="User"
-                    width={32}
-                    height={32}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                <div className="hidden lg:flex items-center gap-1">
-                  <span className="text-sm font-medium">admin</span>
-                  <ChevronDown className={`h-4 w-4 transition-transform ${profileMenu ? "rotate-180" : ""}`} />
-                </div>
-              </button>
-
-              {profileMenu && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border">
-                  <div className="py-1">
-                    <Link 
-                      href="/profile"
-                      className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      <User className="h-4 w-4" />
-                      Profile
-                    </Link>
-                    <Link 
-                      href="/settings"
-                      className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      <Settings2 className="h-4 w-4" />
-                      Settings
-                    </Link>
-                    <Link 
-                      href="/help"
-                      className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    >
-                      <HelpCircle className="h-4 w-4" />
-                      Help Center
-                    </Link>
-                    <div className="border-t">
-                      <button 
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-gray-100 w-full"
-                        onClick={() => {
-                          // Add your logout logic here
-                          console.log("Logging out...");
-                        }}
-                      >
-                        <LogOut className="h-4 w-4" />
-                        Logout
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Settings */}
-            <button className="p-2 hover:bg-gray-100 rounded-full">
-              <Settings className="h-5 w-5 text-gray-600" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Search and Menu */}
       {mobileMenu && (
-        <div className="lg:hidden border-t bg-white w-full px-4">
+        <div className="lg:hidden border-t bg-white">
           <div className="p-4">
             <div className="relative mb-4">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <input
                 type="text"
                 placeholder="Search..."
-                className="w-full pl-10 pr-4 py-2 bg-gray-50 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full pl-10 pr-4 py-2 bg-gray-50 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary"
               />
             </div>
-            <nav className="space-y-4">
-              <Link href="/dashboard" className="block py-2 hover:text-blue-600">Dashboard</Link>
-              <Link href="/apps" className="block py-2 hover:text-blue-600">Apps</Link>
-              <Link href="/components" className="block py-2 hover:text-blue-600">Components</Link>
-              <Link href="/pages" className="block py-2 hover:text-blue-600">Pages</Link>
+            <nav className="space-y-1">
+              <Link href="/dashboard" className="block px-4 py-2 hover:bg-gray-50 rounded-lg">Dashboard</Link>
+              <Link href="/apps" className="block px-4 py-2 hover:bg-gray-50 rounded-lg">Apps</Link>
+              <Link href="/components" className="block px-4 py-2 hover:bg-gray-50 rounded-lg">Components</Link>
+              <Link href="/pages" className="block px-4 py-2 hover:bg-gray-50 rounded-lg">Pages</Link>
             </nav>
           </div>
         </div>
@@ -327,5 +319,8 @@ export default function Header() {
     </header>
   );
 }
+
+
+
 
 

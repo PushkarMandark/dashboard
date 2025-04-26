@@ -21,7 +21,10 @@ export default function RootLayout({ children }) {
             <Header />
             <SubHeader />
           </div>
-          {children}
+          <main className="container mx-auto">
+
+            {children}
+          </main>
         </Provider>
       </body>
     </html>
