@@ -16,13 +16,18 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
     level4: null,
   });
 
-  // Desktop menu handlers
+  // Updated menu handlers
   const handleMenuEnter = (menuId) => {
     setActiveMenu(menuId);
+    // Reset other menu states
+    setActiveSubMenu(null);
+    setActiveChildMenu(null);
   };
 
   const handleSubMenuEnter = (label) => {
     setActiveSubMenu(label);
+    // Reset child menu state
+    setActiveChildMenu(null);
   };
 
   const handleChildMenuEnter = (label) => {
@@ -44,12 +49,12 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
       url: "/dashboard", // URL only because no children
     },
     {
-      id: "bugs",
-      label: "Bugs",
+      id: "Profile",
+      label: "Profile",
       icon: <BsCollection/>,
       items: [
         {
-          label: "Projects",
+          label: "Profile",
           items: [
             {
               label: "Active",
@@ -69,12 +74,12 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
               ],
             },
             {
-              label: "Resolved",
-              url: "/bugs/projects/resolved",
+              label: "viewProfile",
+              url: "/profile",
             },
             {
-              label: "Backlog",
-              url: "/bugs/projects/backlog",
+              label: "EditProfile",
+              url: "/profile/editProfile",
             },
           ],
         },
@@ -227,7 +232,15 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
       <div
         key={subMenu.label}
         className="relative"
-        onMouseEnter={() => hasChildren && handleSubMenuEnter(subMenu.label)}
+        onMouseEnter={() => {
+          if (hasChildren) {
+            handleSubMenuEnter(subMenu.label);
+          } else {
+            // If no children, clear subsequent menus
+            setActiveSubMenu(null);
+            setActiveChildMenu(null);
+          }
+        }}
       >
         {subMenu.url ? (
           <Link
@@ -254,7 +267,7 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
     );
   };
 
-  const renderDesktopChildMenuItem = (childMenu ) => {
+  const renderDesktopChildMenuItem = (childMenu) => {
     const hasChildren = childMenu.items && childMenu.items.length > 0;
 
     const buttonContent = (
@@ -268,7 +281,14 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
       <div
         key={childMenu.label}
         className="relative"
-        onMouseEnter={() => hasChildren && handleChildMenuEnter(childMenu.label)}
+        onMouseEnter={() => {
+          if (hasChildren) {
+            handleChildMenuEnter(childMenu.label);
+          } else {
+            // If no children, clear subsequent menus
+            setActiveChildMenu(null);
+          }
+        }}
       >
         {childMenu.url ? (
           <Link

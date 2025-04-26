@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
                 <SubHeader isMobileView={false} />
               </div>
             </div>
-            <main>
+            <main className="container-custom py-6">
               {children}
             </main>
           </Provider>
