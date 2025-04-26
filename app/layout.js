@@ -1,31 +1,35 @@
 "use client";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Provider } from "react-redux";
 import { store } from "@/lib/store";
+import Header from "@/components/Header";
+import SubHeader from "@/components/SubHeader";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-poppins",
 });
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${poppins.variable} antialiased font-poppins`}>
         <Provider store={store}>
+          <div className="sticky top-0 z-50 w-full bg-white">
+            <Header />
+            <SubHeader />
+          </div>
           {children}
         </Provider>
       </body>
     </html>
   );
 }
+
+
+
+
 
 

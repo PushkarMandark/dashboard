@@ -1,21 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["class"],
   content: [
     "./pages/**/*.{js,jsx}",
     "./components/**/*.{js,jsx}",
     "./app/**/*.{js,jsx}",
-    "./src/**/*.{js,jsx}",
   ],
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
+      fontFamily: {
+        // Set Poppins as the default sans font
+        sans: ["var(--font-poppins)", "sans-serif"],
+        // Keep Poppins as an alternative option if needed
+        poppins: ["var(--font-poppins)", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -25,6 +22,7 @@ module.exports = {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          600: "#556ee6", // Direct hex reference
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -74,3 +72,8 @@ module.exports = {
   },
   plugins: [],
 };
+
+
+
+
+
