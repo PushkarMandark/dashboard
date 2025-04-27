@@ -10,7 +10,7 @@ const PageHeader = () => {
   if (!navInfo) return null;
 
   return (
-    <div className="flex items-center justify-between py-4 mb-6 border-b">
+    <div className="flex items-center justify-between  mb-6  ">
       <h1 className="text-2xl font-semibold text-gray-900">
         {navInfo.title}
       </h1>

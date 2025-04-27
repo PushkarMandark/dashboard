@@ -9,12 +9,11 @@
     @apply bg-primary/90;
   }
   .container-custom {
-    @apply w-full px-4 mx-auto;
+    @apply mx-auto px-4;
     
     /* Default for mobile (up to 640px) */
     width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    max-width: 100%;
     
     /* SM breakpoint (640px) */
     @media (min-width: 640px) {
@@ -37,18 +36,20 @@
     /* XL breakpoint (1280px) */
     @media (min-width: 1280px) {
       width: 85%;
+      max-width: 1400px;
     }
     
     /* 2XL breakpoint (1536px) */
     @media (min-width: 1536px) {
-      width: 1600px; /* Fixed width for larger screens */
+      width: 1400px;
+      max-width: 1400px;
     }
   }
 }
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 240 13% 98%;  /* #f8f8fb */
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;

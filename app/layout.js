@@ -17,7 +17,7 @@ const poppins = Poppins({
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} antialiased font-poppins`}>
+      <body className={`${poppins.variable} antialiased font-poppins bg-background min-h-screen`}>
         <ErrorBoundary fallback="An error occurred. Please try again later.">
           <Provider store={store}>
             <div className="sticky top-0 z-50 w-full bg-white">
@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
                 <SubHeader isMobileView={false} />
               </div>
             </div>
-            <main className="container-custom">
+            <main className="container-custom py-6">
               <PageHeader />
               {children}
             </main>
