@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "@/lib/store";
 import Header from "@/components/Header";
 import SubHeader from "@/components/SubHeader";
+import PageHeader from "@/components/PageHeader";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
 const poppins = Poppins({
@@ -25,7 +26,8 @@ export default function RootLayout({ children }) {
                 <SubHeader isMobileView={false} />
               </div>
             </div>
-            <main className="container-custom py-6">
+            <main className="container-custom">
+              <PageHeader />
               {children}
             </main>
           </Provider>
@@ -34,6 +36,8 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
+
 
 
 

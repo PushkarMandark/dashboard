@@ -1,0 +1,24 @@
+"use client";
+import { usePathname } from "next/navigation";
+import Breadcrumb from "./Breadcrumb";
+import { getNavigationInfo } from "@/utils/navigation";
+
+const PageHeader = () => {
+  const pathname = usePathname();
+  const navInfo = getNavigationInfo(pathname);
+  
+  if (!navInfo) return null;
+
+  return (
+    <div className="flex items-center justify-between py-4 mb-6 border-b">
+      <h1 className="text-2xl font-semibold text-gray-900">
+        {navInfo.title}
+      </h1>
+      <Breadcrumb items={navInfo.breadcrumbs} />
+    </div>
+  );
+};
+
+export default PageHeader;
+
+
