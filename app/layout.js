@@ -3,9 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Provider } from "react-redux";
 import { store } from "@/lib/store";
-import Header from "@/components/Header";
-import SubHeader from "@/components/SubHeader";
-import PageHeader from "@/components/PageHeader";
+
 import ErrorBoundary from "@/components/ErrorBoundary";
 
 const poppins = Poppins({
@@ -20,16 +18,7 @@ export default function RootLayout({ children }) {
       <body className={`${poppins.variable} antialiased font-poppins bg-background min-h-screen`}>
         <ErrorBoundary fallback="An error occurred. Please try again later.">
           <Provider store={store}>
-            <div className="sticky top-0 z-50 w-full bg-white">
-              <div className="w-full">
-                <Header />
-                <SubHeader isMobileView={false} />
-              </div>
-            </div>
-            <main className="container-custom py-6">
-              <PageHeader />
-              {children}
-            </main>
+            {children}
           </Provider>
         </ErrorBoundary>
       </body>

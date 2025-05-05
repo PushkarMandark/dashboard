@@ -16,6 +16,10 @@ import {
 } from "lucide-react";
 import SubHeader from "./SubHeader";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import { authService } from "@/lib/services/authService";
+import { useDispatch } from "react-redux";
+import { clearUser } from "@/lib/features/userSlice";
+import { useRouter } from "next/navigation";
 
 // Memoize the Header component
 const Header = () => {
@@ -127,6 +131,20 @@ const Header = () => {
       document.body.style.overflow = "auto";
     };
   }, []);
+
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    // Clear the auth token
+    authService.logout();
+    
+    // Clear the user from Redux store
+    dispatch(clearUser());
+    
+    // Redirect to login page
+    router.push("/login");
+  };
 
   return (
     <ErrorBoundary fallback="There was a problem loading the navigation menu. Please try refreshing the page.">
@@ -335,10 +353,7 @@ const Header = () => {
                   <div className="border-t">
                     <button 
                       className="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-gray-100 w-full"
-                      onClick={() => {
-                        // Add your logout logic here
-                        console.log("Logging out...");
-                      }}
+                      onClick={handleLogout}
                     >
                       <LogOut className="h-4 w-4" />
                         Logout
