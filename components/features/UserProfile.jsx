@@ -8,7 +8,7 @@ import {
   selectPreferences,
   updatePreferences,
   clearUser,
-} from "@/lib/features/userSlice";
+} from "@/state/slices/userSlice";
 
 export default function UserProfile() {
   const dispatch = useDispatch();

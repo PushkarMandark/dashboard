@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { setUser } from "@/lib/features/userSlice";
 import { authService } from "@/lib/services/authService";
+import { setUser } from "@/state/slices/userSlice";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");

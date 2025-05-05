@@ -20,8 +20,8 @@ import { useDispatch } from "react-redux";
 import SubHeader from "./SubHeader";
 
 import ErrorBoundary from "@/components/ErrorBoundary";
-import { clearUser } from "@/lib/features/userSlice";
 import { authService } from "@/lib/services/authService";
+import { clearUser } from "@/state/slices/userSlice";
 
 // Memoize the Header component
 const Header = () => {
