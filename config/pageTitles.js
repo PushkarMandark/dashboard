@@ -3,7 +3,7 @@ export const pageTitleMappings = {
   dashboard: "Dashboard Overview",
   profile: "User Profile",
   settings: "Settings",
-  
+
   // Complex mappings with dynamic segments
   "bugs/projects": {
     label: "Projects",

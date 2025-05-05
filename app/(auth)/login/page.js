@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
+
 import { setUser } from "@/lib/features/userSlice";
 import { authService } from "@/lib/services/authService";
 
@@ -13,7 +14,7 @@ export default function LoginPage() {
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  
+
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -21,11 +22,11 @@ export default function LoginPage() {
     e.preventDefault();
     setIsLoading(true);
     setError("");
-    
+
     try {
       // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       // Dummy login logic - in real app, this would be an API call
       if (email === "admin@admin.com" && password === "password") {
         // Create user object
@@ -35,15 +36,16 @@ export default function LoginPage() {
           email: "admin@admin.com",
           role: "Admin",
         };
-        
+
         // Set user in Redux store
         dispatch(setUser(userData));
-        
+
         // Set authentication cookie using authService
         // Generate a dummy token - in a real app, this would come from your backend
-        const dummyToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwicm9sZSI6IkFkbWluIn0";
+        const dummyToken =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwicm9sZSI6IkFkbWluIn0";
         authService.login(userData, dummyToken);
-        
+
         // Navigate to root page instead of dashboard
         router.push("/");
       } else {
@@ -66,15 +68,15 @@ export default function LoginPage() {
             <h2 className="text-xl font-semibold text-gray-800">Welcome Back !</h2>
             <p className="text-sm text-blue-600">Sign in to continue to MyDasbhboard.</p>
           </div>
-          <Image 
-            src="/images/login-illustration.png" 
-            alt="Login" 
-            width={120} 
+          <Image
+            src="/images/login-illustration.png"
+            alt="Login"
+            width={120}
             height={120}
             className="h-auto"
           />
         </div>
-        
+
         {/* Login Form */}
         <div className="p-6">
           {error && (
@@ -82,7 +84,7 @@ export default function LoginPage() {
               {error}
             </div>
           )}
-          
+
           <form onSubmit={handleLogin}>
             <div className="mb-4">
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
@@ -98,7 +100,7 @@ export default function LoginPage() {
                 required
               />
             </div>
-            
+
             <div className="mb-4">
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                 Password
@@ -113,7 +115,7 @@ export default function LoginPage() {
                 required
               />
             </div>
-            
+
             <div className="mb-6">
               <label className="flex items-center">
                 <input
@@ -125,7 +127,7 @@ export default function LoginPage() {
                 <span className="ml-2 text-sm text-gray-600">Remember me</span>
               </label>
             </div>
-            
+
             <button
               type="submit"
               disabled={isLoading}
@@ -134,7 +136,7 @@ export default function LoginPage() {
               {isLoading ? "Logging in..." : "Log In"}
             </button>
           </form>
-          
+
           {/* Social Login */}
           <div className="mt-6">
             <div className="text-center mb-4">
@@ -153,7 +155,7 @@ export default function LoginPage() {
               </button>
             </div>
           </div>
-          
+
           {/* Forgot Password */}
           <div className="mt-6 text-center">
             <Link href="/forgot-password" className="text-sm text-primary hover:text-primary-dark">
@@ -161,16 +163,17 @@ export default function LoginPage() {
             </Link>
           </div>
         </div>
-        
+
         {/* Footer */}
         <div className="px-6 py-4 bg-gray-50 border-t text-center">
           <p className="text-sm text-gray-600">
-            Don&apos;t have an account? <Link href="/signup" className="text-primary hover:text-primary-dark">Signup now</Link>
+            Don&apos;t have an account?{" "}
+            <Link href="/signup" className="text-primary hover:text-primary-dark">
+              Signup now
+            </Link>
           </p>
         </div>
       </div>
-    
     </div>
   );
 }
-

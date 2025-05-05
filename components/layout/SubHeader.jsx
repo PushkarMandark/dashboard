@@ -1,9 +1,9 @@
 "use client";
-import Link from "next/link";
 import { ChevronDown, ChevronRight } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
-import { BsCollection } from "react-icons/bs";
 import { BiHomeCircle, BiCog } from "react-icons/bi";
+import { BsCollection } from "react-icons/bs";
 
 export default function SubHeader({ showMobileMenu = false, isMobileView = false }) {
   const [activeMenu, setActiveMenu] = useState(null);
@@ -45,13 +45,13 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
     {
       id: "dashboard",
       label: "Dashboard",
-      icon: <BiHomeCircle/>,
+      icon: <BiHomeCircle />,
       url: "/dashboard", // URL only because no children
     },
     {
       id: "Profile",
       label: "Profile",
-      icon: <BsCollection/>,
+      icon: <BsCollection />,
       items: [
         {
           label: "Profile",
@@ -105,7 +105,7 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
     {
       id: "settings",
       label: "Settings",
-      icon: <BiCog/>,
+      icon: <BiCog />,
       items: [
         {
           label: "Project Settings",
@@ -143,28 +143,28 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
 
   // Updated mobile menu click handler
   const handleMobileMenuClick = (level, value) => {
-    setMobileActiveMenus(prev => {
+    setMobileActiveMenus((prev) => {
       const newState = { ...prev };
-      
-      switch(level) {
-      case "level1":
-        newState.level1 = prev.level1 === value ? null : value;
-        newState.level2 = null;
-        newState.level3 = null;
-        newState.level4 = null;
-        break;
-      case "level2":
-        newState.level2 = prev.level2 === value ? null : value;
-        newState.level3 = null;
-        newState.level4 = null;
-        break;
-      case "level3":
-        newState.level3 = prev.level3 === value ? null : value;
-        newState.level4 = null;
-        break;
-      case "level4":
-        newState.level4 = prev.level4 === value ? null : value;
-        break;
+
+      switch (level) {
+        case "level1":
+          newState.level1 = prev.level1 === value ? null : value;
+          newState.level2 = null;
+          newState.level3 = null;
+          newState.level4 = null;
+          break;
+        case "level2":
+          newState.level2 = prev.level2 === value ? null : value;
+          newState.level3 = null;
+          newState.level4 = null;
+          break;
+        case "level3":
+          newState.level3 = prev.level3 === value ? null : value;
+          newState.level4 = null;
+          break;
+        case "level4":
+          newState.level4 = prev.level4 === value ? null : value;
+          break;
       }
       return newState;
     });
@@ -176,7 +176,7 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
 
   const renderDesktopMenuItem = (menu) => {
     const hasChildren = menu.items && menu.items.length > 0;
-    
+
     const buttonContent = (
       <>
         <span>{menu.icon}</span>
@@ -193,7 +193,7 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
         onMouseLeave={handleMenuLeave}
       >
         {menu.url ? (
-          <Link 
+          <Link
             href={menu.url}
             className="desktop-nav-button flex items-center gap-2 px-4 py-4 hover:bg-primary-dark"
             legacyBehavior={false}
@@ -201,7 +201,7 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
             {buttonContent}
           </Link>
         ) : (
-          <button 
+          <button
             className="desktop-nav-button flex items-center gap-2 px-4 py-4 hover:bg-primary-dark"
             aria-expanded={activeMenu === menu.id}
           >
@@ -251,16 +251,16 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
             {buttonContent}
           </Link>
         ) : (
-          <button 
-            className="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100"
-          >
+          <button className="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100">
             {buttonContent}
           </button>
         )}
 
         {hasChildren && activeSubMenu === subMenu.label && (
           <div className="absolute top-0 left-full w-64 bg-white shadow-lg">
-            {subMenu.items.map((childMenu) => renderDesktopChildMenuItem(childMenu, parentMenu, subMenu))}
+            {subMenu.items.map((childMenu) =>
+              renderDesktopChildMenuItem(childMenu, parentMenu, subMenu),
+            )}
           </div>
         )}
       </div>
@@ -299,9 +299,7 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
             {buttonContent}
           </Link>
         ) : (
-          <button 
-            className="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100"
-          >
+          <button className="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100">
             {buttonContent}
           </button>
         )}
@@ -330,9 +328,7 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
         {/* Desktop Navigation - Only show when not in mobile view */}
         {!isMobileView && (
           <nav className="hidden lg:block">
-            <div className="flex">
-              {menuItems.map(renderDesktopMenuItem)}
-            </div>
+            <div className="flex">{menuItems.map(renderDesktopMenuItem)}</div>
           </nav>
         )}
 
@@ -362,7 +358,9 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
                           <span>{menu.icon}</span>
                           <span>{menu.label}</span>
                         </span>
-                        <ChevronDown className={`h-4 w-4 transition-transform ${mobileActiveMenus.level1 === menu.id ? "rotate-180" : ""}`} />
+                        <ChevronDown
+                          className={`h-4 w-4 transition-transform ${mobileActiveMenus.level1 === menu.id ? "rotate-180" : ""}`}
+                        />
                       </button>
 
                       {mobileActiveMenus.level1 === menu.id && (
@@ -375,7 +373,9 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
                                 onClick={() => handleMobileMenuClick("level2", subMenu.label)}
                               >
                                 <span>{subMenu.label}</span>
-                                <ChevronDown className={`h-4 w-4 transition-transform ${mobileActiveMenus.level2 === subMenu.label ? "rotate-180" : ""}`} />
+                                <ChevronDown
+                                  className={`h-4 w-4 transition-transform ${mobileActiveMenus.level2 === subMenu.label ? "rotate-180" : ""}`}
+                                />
                               </button>
 
                               {mobileActiveMenus.level2 === subMenu.label && (
@@ -385,10 +385,14 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
                                       {/* Level 3 */}
                                       <button
                                         className="flex items-center justify-between w-full px-8 py-2"
-                                        onClick={() => handleMobileMenuClick("level3", childMenu.label)}
+                                        onClick={() =>
+                                          handleMobileMenuClick("level3", childMenu.label)
+                                        }
                                       >
                                         <span>{childMenu.label}</span>
-                                        <ChevronDown className={`h-4 w-4 transition-transform ${mobileActiveMenus.level3 === childMenu.label ? "rotate-180" : ""}`} />
+                                        <ChevronDown
+                                          className={`h-4 w-4 transition-transform ${mobileActiveMenus.level3 === childMenu.label ? "rotate-180" : ""}`}
+                                        />
                                       </button>
 
                                       {mobileActiveMenus.level3 === childMenu.label && (
@@ -398,11 +402,13 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
                                               {/* Level 4 (Final Items) */}
                                               <button
                                                 className="flex items-center justify-between w-full px-10 py-2"
-                                                onClick={() => handleMobileMenuClick("level4", item)}
+                                                onClick={() =>
+                                                  handleMobileMenuClick("level4", item)
+                                                }
                                               >
                                                 <span>{item}</span>
                                               </button>
-                                              
+
                                               {mobileActiveMenus.level4 === item && (
                                                 <Link
                                                   href={`/${menu.id}/${subMenu.label.toLowerCase()}/${childMenu.label.toLowerCase()}/${item.toLowerCase().replace(/\s+/g, "-")}`}
@@ -434,7 +440,3 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
     </div>
   );
 }
-
-
-
-

@@ -32,7 +32,10 @@ export const navigationConfig = {
               title: `${status.charAt(0).toUpperCase() + status.slice(1)} Projects - ${priority.charAt(0).toUpperCase() + priority.slice(1)} Priority`,
               breadcrumbs: [
                 { label: "Projects", url: "/bugs/projects" },
-                { label: status.charAt(0).toUpperCase() + status.slice(1), url: `/bugs/projects/${status}` },
+                {
+                  label: status.charAt(0).toUpperCase() + status.slice(1),
+                  url: `/bugs/projects/${status}`,
+                },
                 { label: priority.charAt(0).toUpperCase() + priority.slice(1) },
               ],
             };

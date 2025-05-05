@@ -1,16 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
-import Image from "next/image";
-import { Bar, Line, Doughnut, PolarArea } from "react-chartjs-2";
-import { 
-  Chart as ChartJS, 
-  CategoryScale, 
-  LinearScale, 
-  BarElement, 
-  Title, 
-  Tooltip, 
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
   Legend,
   PointElement,
   LineElement,
@@ -18,10 +13,16 @@ import {
   RadialLinearScale,
   Filler,
 } from "chart.js";
+import Cookies from "js-cookie";
 import { Facebook, ArrowRight } from "lucide-react";
-import Header from "@/components/Header";
-import SubHeader from "@/components/SubHeader";
-import PageHeader from "@/components/PageHeader";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Bar, Line, Doughnut, PolarArea } from "react-chartjs-2";
+
+import Header from "@/components/layout/Header";
+import PageHeader from "@/components/layout/PageHeader";
+import SubHeader from "@/components/layout/SubHeader";
 
 // Register ChartJS components
 ChartJS.register(
@@ -42,13 +43,13 @@ export default function Home() {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   useEffect(() => {
     // Check if auth token exists
     const authToken = Cookies.get("auth_token");
     setIsAuthenticated(!!authToken);
     setIsLoading(false);
-    
+
     // If not authenticated, redirect to login
     if (!authToken) {
       router.push("/login");
@@ -111,13 +112,7 @@ export default function Home() {
     datasets: [
       {
         data: [35, 25, 20, 15, 5],
-        backgroundColor: [
-          "#556ee6",
-          "#34c38f",
-          "#f1b44c",
-          "#50a5f1",
-          "#f46a6a",
-        ],
+        backgroundColor: ["#556ee6", "#34c38f", "#f1b44c", "#50a5f1", "#f46a6a"],
       },
     ],
   };
@@ -179,8 +174,18 @@ export default function Home() {
                   <h3 className="text-2xl font-bold">1,235</h3>
                 </div>
                 <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                  <svg
+                    className="w-6 h-6 text-blue-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                    />
                   </svg>
                 </div>
               </div>
@@ -193,8 +198,18 @@ export default function Home() {
                   <h3 className="text-2xl font-bold">$35,723</h3>
                 </div>
                 <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                  <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg
+                    className="w-6 h-6 text-purple-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                 </div>
               </div>
@@ -207,8 +222,18 @@ export default function Home() {
                   <h3 className="text-2xl font-bold">$16.2</h3>
                 </div>
                 <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                  <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  <svg
+                    className="w-6 h-6 text-green-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                    />
                   </svg>
                 </div>
               </div>
@@ -293,9 +318,15 @@ export default function Home() {
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-lg font-semibold">Email Sent</h3>
                   <div className="flex gap-2">
-                    <button className="px-3 py-1 rounded-lg text-sm text-gray-600 hover:bg-gray-100">Week</button>
-                    <button className="px-3 py-1 rounded-lg text-sm text-gray-600 hover:bg-gray-100">Month</button>
-                    <button className="px-3 py-1 rounded-lg text-sm text-white bg-blue-600">Year</button>
+                    <button className="px-3 py-1 rounded-lg text-sm text-gray-600 hover:bg-gray-100">
+                      Week
+                    </button>
+                    <button className="px-3 py-1 rounded-lg text-sm text-gray-600 hover:bg-gray-100">
+                      Month
+                    </button>
+                    <button className="px-3 py-1 rounded-lg text-sm text-white bg-blue-600">
+                      Year
+                    </button>
                   </div>
                 </div>
                 <div className="h-[300px]">

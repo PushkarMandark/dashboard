@@ -1,4 +1,5 @@
 import { Component } from "react";
+
 import { Button } from "@/components/ui/button";
 
 class ErrorBoundary extends Component {
@@ -11,7 +12,7 @@ class ErrorBoundary extends Component {
     };
   }
 
-  static getDerivedStateFromError( ) {
+  static getDerivedStateFromError() {
     // Update state so the next render will show the fallback UI
     return { hasError: true };
   }
@@ -20,8 +21,8 @@ class ErrorBoundary extends Component {
     // You can log the error to an error reporting service here
     // Example: Sentry, LogRocket, etc.
     this.setState({
-      error: error,
-      errorInfo: errorInfo,
+      error,
+      errorInfo,
     });
 
     // Log to console in development
@@ -39,9 +40,7 @@ class ErrorBoundary extends Component {
         <div className="min-h-[calc(100vh-200px)] flex items-center justify-center p-4">
           <div className="max-w-md w-full space-y-6 text-center">
             <div className="space-y-2">
-              <h2 className="text-2xl font-semibold text-gray-900">
-                Something went wrong
-              </h2>
+              <h2 className="text-2xl font-semibold text-gray-900">Something went wrong</h2>
               <p className="text-muted-foreground">
                 {this.props.fallback || "We're sorry, but there was an error loading this page."}
               </p>
@@ -59,16 +58,10 @@ class ErrorBoundary extends Component {
             )}
 
             <div className="space-x-4">
-              <Button
-                onClick={() => window.location.reload()}
-                variant="default"
-              >
+              <Button onClick={() => window.location.reload()} variant="default">
                 Reload Page
               </Button>
-              <Button
-                onClick={() => window.location.href = "/"}
-                variant="outline"
-              >
+              <Button onClick={() => (window.location.href = "/")} variant="outline">
                 Go to Homepage
               </Button>
             </div>

@@ -1,8 +1,14 @@
 "use client";
 
 import { useSelector, useDispatch } from "react-redux";
-import { selectUser, selectPreferences, updatePreferences, clearUser } from "@/lib/features/userSlice";
+
 import { Button } from "@/components/ui/button";
+import {
+  selectUser,
+  selectPreferences,
+  updatePreferences,
+  clearUser,
+} from "@/lib/features/userSlice";
 
 export default function UserProfile() {
   const dispatch = useDispatch();
@@ -24,7 +30,7 @@ export default function UserProfile() {
   return (
     <div className="space-y-4">
       <h2 className="text-2xl font-bold">User Profile</h2>
-      
+
       <div>
         <p>Username: {user.username}</p>
         <p>Email: {user.email}</p>

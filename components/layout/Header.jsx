@@ -1,12 +1,9 @@
 "use client";
-import { useState, useRef, useEffect, memo, useMemo, useCallback } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { 
-  Bell, 
-  ChevronDown, 
-  Search, 
-  Maximize, 
+import {
+  Bell,
+  ChevronDown,
+  Search,
+  Maximize,
   Menu,
   X,
   User,
@@ -14,12 +11,17 @@ import {
   Settings2,
   HelpCircle,
 } from "lucide-react";
-import SubHeader from "./SubHeader";
-import ErrorBoundary from "@/components/ErrorBoundary";
-import { authService } from "@/lib/services/authService";
-import { useDispatch } from "react-redux";
-import { clearUser } from "@/lib/features/userSlice";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState, useRef, useEffect, memo, useMemo, useCallback } from "react";
+import { useDispatch } from "react-redux";
+
+import SubHeader from "./SubHeader";
+
+import ErrorBoundary from "@/components/ErrorBoundary";
+import { clearUser } from "@/lib/features/userSlice";
+import { authService } from "@/lib/services/authService";
 
 // Memoize the Header component
 const Header = () => {
@@ -45,19 +47,19 @@ const Header = () => {
   useEffect(() => {
     function handleClickOutside(event) {
       if (megaMenuRef.current && !megaMenuRef.current.contains(event.target)) {
-        setMenuStates(prev => ({
+        setMenuStates((prev) => ({
           ...prev,
           megaMenu: false,
         }));
       }
       if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
-        setMenuStates(prev => ({
+        setMenuStates((prev) => ({
           ...prev,
           profileMenu: false,
         }));
       }
       if (notificationMenuRef.current && !notificationMenuRef.current.contains(event.target)) {
-        setMenuStates(prev => ({
+        setMenuStates((prev) => ({
           ...prev,
           notificationMenu: false,
         }));
@@ -102,14 +104,14 @@ const Header = () => {
   ];
 
   // Memoize notification count
-  const unreadNotificationCount = useMemo(() => 
-    notifications.filter(n => !n.isRead).length,
-  [notifications],
+  const unreadNotificationCount = useMemo(
+    () => notifications.filter((n) => !n.isRead).length,
+    [notifications],
   );
 
   // Memoize handlers
   const toggleNotificationMenu = useCallback(() => {
-    setMenuStates(prev => ({
+    setMenuStates((prev) => ({
       ...prev,
       notificationMenu: !prev.notificationMenu,
     }));
@@ -117,7 +119,7 @@ const Header = () => {
 
   // Add function to handle mobile menu state
   const handleMobileMenuToggle = () => {
-    setMenuStates(prev => ({
+    setMenuStates((prev) => ({
       ...prev,
       mobileMenu: !prev.mobileMenu,
     }));
@@ -126,11 +128,12 @@ const Header = () => {
   };
 
   // Cleanup effect for body scroll
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       document.body.style.overflow = "auto";
-    };
-  }, []);
+    },
+    [],
+  );
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -138,10 +141,10 @@ const Header = () => {
   const handleLogout = () => {
     // Clear the auth token
     authService.logout();
-    
+
     // Clear the user from Redux store
     dispatch(clearUser());
-    
+
     // Redirect to login page
     router.push("/login");
   };
@@ -153,7 +156,7 @@ const Header = () => {
           {/* Left Section */}
           <div className="flex items-center gap-4">
             {/* Mobile Menu Button */}
-            <button 
+            <button
               aria-expanded={menuStates.mobileMenu}
               aria-label="Toggle mobile menu"
               className="lg:hidden p-2 hover:bg-gray-100 rounded-lg"
@@ -164,13 +167,7 @@ const Header = () => {
 
             {/* Logo */}
             <Link href="/" className="flex items-center py-4">
-              <Image 
-                src="/images/logo.png" 
-                alt="Skote" 
-                width={100} 
-                height={30}
-                className=""
-              />
+              <Image src="/images/logo.png" alt="Skote" width={100} height={30} className="" />
             </Link>
 
             {/* Desktop Search Bar */}
@@ -187,17 +184,21 @@ const Header = () => {
             <div ref={megaMenuRef} className="hidden lg:block relative ml-8">
               <button
                 className="flex items-center gap-1 text-gray-700 hover:text-gray-900 py-4"
-                onClick={() => setMenuStates(prev => ({
-                  ...prev,
-                  megaMenu: !prev.megaMenu,
-                }))}
+                onClick={() =>
+                  setMenuStates((prev) => ({
+                    ...prev,
+                    megaMenu: !prev.megaMenu,
+                  }))
+                }
               >
                 Mega Menu
-                <ChevronDown className={`h-4 w-4 transition-transform ${menuStates.megaMenu ? "rotate-180" : ""}`} />
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform ${menuStates.megaMenu ? "rotate-180" : ""}`}
+                />
               </button>
 
               {menuStates.megaMenu && (
-                <div 
+                <div
                   style={{ position: "fixed", top: `${headerHeight}px` }}
                   className="left-1/2 transform -translate-x-1/2 w-[800px] bg-white rounded-lg shadow-lg border p-6 z-[60]"
                 >
@@ -205,25 +206,88 @@ const Header = () => {
                     <div>
                       <h3 className="font-semibold mb-4 text-gray-900">UI Components</h3>
                       <ul className="space-y-2">
-                        <li><Link href="/components/buttons" className="text-gray-600 hover:text-primary block">Buttons</Link></li>
-                        <li><Link href="/components/cards" className="text-gray-600 hover:text-primary block">Cards</Link></li>
-                        <li><Link href="/components/forms" className="text-gray-600 hover:text-primary block">Forms</Link></li>
+                        <li>
+                          <Link
+                            href="/components/buttons"
+                            className="text-gray-600 hover:text-primary block"
+                          >
+                            Buttons
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            href="/components/cards"
+                            className="text-gray-600 hover:text-primary block"
+                          >
+                            Cards
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            href="/components/forms"
+                            className="text-gray-600 hover:text-primary block"
+                          >
+                            Forms
+                          </Link>
+                        </li>
                       </ul>
                     </div>
                     <div>
                       <h3 className="font-semibold mb-4 text-gray-900">Applications</h3>
                       <ul className="space-y-2">
-                        <li><Link href="/apps/calendar" className="text-gray-600 hover:text-primary block">Calendar</Link></li>
-                        <li><Link href="/apps/chat" className="text-gray-600 hover:text-primary block">Chat</Link></li>
-                        <li><Link href="/apps/email" className="text-gray-600 hover:text-primary block">Email</Link></li>
+                        <li>
+                          <Link
+                            href="/apps/calendar"
+                            className="text-gray-600 hover:text-primary block"
+                          >
+                            Calendar
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            href="/apps/chat"
+                            className="text-gray-600 hover:text-primary block"
+                          >
+                            Chat
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            href="/apps/email"
+                            className="text-gray-600 hover:text-primary block"
+                          >
+                            Email
+                          </Link>
+                        </li>
                       </ul>
                     </div>
                     <div>
                       <h3 className="font-semibold mb-4 text-gray-900">Extra Pages</h3>
                       <ul className="space-y-2">
-                        <li><Link href="/pages/profile" className="text-gray-600 hover:text-primary block">Profile</Link></li>
-                        <li><Link href="/pages/invoice" className="text-gray-600 hover:text-primary block">Invoice</Link></li>
-                        <li><Link href="/pages/faq" className="text-gray-600 hover:text-primary block">FAQ</Link></li>
+                        <li>
+                          <Link
+                            href="/pages/profile"
+                            className="text-gray-600 hover:text-primary block"
+                          >
+                            Profile
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            href="/pages/invoice"
+                            className="text-gray-600 hover:text-primary block"
+                          >
+                            Invoice
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            href="/pages/faq"
+                            className="text-gray-600 hover:text-primary block"
+                          >
+                            FAQ
+                          </Link>
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -241,17 +305,14 @@ const Header = () => {
 
             {/* Desktop Only Items */}
             <div className="hidden lg:flex items-center gap-4">
-              <button 
-                className="p-2 hover:bg-gray-100 rounded-full"
-                onClick={toggleFullscreen}
-              >
+              <button className="p-2 hover:bg-gray-100 rounded-full" onClick={toggleFullscreen}>
                 <Maximize className="h-5 w-5 text-gray-600" />
               </button>
             </div>
 
             {/* Notifications */}
             <div ref={notificationMenuRef} className="relative">
-              <button 
+              <button
                 className="p-2 hover:bg-gray-100 rounded-full relative"
                 onClick={toggleNotificationMenu}
               >
@@ -271,7 +332,7 @@ const Header = () => {
                   </div>
                   <div className="max-h-96 overflow-y-auto">
                     {notifications.map((notification) => (
-                      <div 
+                      <div
                         key={notification.id}
                         className={`p-4 border-b hover:bg-gray-50 cursor-pointer ${
                           notification.isRead ? "bg-white" : "bg-blue-50"
@@ -289,7 +350,7 @@ const Header = () => {
                   </div>
                   <div className="p-4 text-center border-t">
                     <Link href="/notifications" className="text-blue-600 hover:text-blue-700">
-                        View All Notifications
+                      View All Notifications
                     </Link>
                   </div>
                 </div>
@@ -298,12 +359,14 @@ const Header = () => {
 
             {/* User Profile */}
             <div ref={profileMenuRef} className="relative">
-              <button 
+              <button
                 className="flex items-center gap-2 p-1 lg:p-0"
-                onClick={() => setMenuStates(prev => ({
-                  ...prev,
-                  profileMenu: !prev.profileMenu,
-                }))}
+                onClick={() =>
+                  setMenuStates((prev) => ({
+                    ...prev,
+                    profileMenu: !prev.profileMenu,
+                  }))
+                }
               >
                 <div className="h-8 w-8 rounded-full bg-gray-200 overflow-hidden">
                   <Image
@@ -316,47 +379,50 @@ const Header = () => {
                 </div>
                 <div className="hidden lg:flex items-center gap-1">
                   <span className="text-sm font-medium">admin</span>
-                  <ChevronDown className={`h-4 w-4 transition-transform ${menuStates.profileMenu ? "rotate-180" : ""}`} />
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform ${menuStates.profileMenu ? "rotate-180" : ""}`}
+                  />
                 </div>
               </button>
 
               {menuStates.profileMenu && (
-                <div 
+                <div
                   role="menu"
                   tabIndex={0}
                   onKeyDown={(e) => {
-                    if (e.key === "Escape") setMenuStates(prev => ({ ...prev, profileMenu: false }));
+                    if (e.key === "Escape")
+                      setMenuStates((prev) => ({ ...prev, profileMenu: false }));
                   }}
                   className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border py-1"
                 >
-                  <Link 
+                  <Link
                     href="/profile"
                     className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     <User className="h-4 w-4" />
-                      Profile
+                    Profile
                   </Link>
-                  <Link 
+                  <Link
                     href="/settings"
                     className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     <Settings2 className="h-4 w-4" />
-                      Settings
+                    Settings
                   </Link>
-                  <Link 
+                  <Link
                     href="/help"
                     className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     <HelpCircle className="h-4 w-4" />
-                      Help Center
+                    Help Center
                   </Link>
                   <div className="border-t">
-                    <button 
+                    <button
                       className="flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-gray-100 w-full"
                       onClick={handleLogout}
                     >
                       <LogOut className="h-4 w-4" />
-                        Logout
+                      Logout
                     </button>
                   </div>
                 </div>
@@ -373,14 +439,9 @@ const Header = () => {
               <div className="p-4 border-b">
                 <div className="flex items-center justify-between">
                   <Link href="/" className="flex items-center" onClick={handleMobileMenuToggle}>
-                    <Image 
-                      src="/images/logo.png" 
-                      alt="Skote" 
-                      width={100} 
-                      height={30}
-                    />
+                    <Image src="/images/logo.png" alt="Skote" width={100} height={30} />
                   </Link>
-                  <button 
+                  <button
                     className="p-2 hover:bg-gray-100 rounded-lg"
                     onClick={handleMobileMenuToggle}
                   >
@@ -399,7 +460,7 @@ const Header = () => {
               </div>
 
               {/* SubHeader for mobile menu */}
-              <SubHeader showMobileMenu={true} isMobileView={true} />
+              <SubHeader showMobileMenu isMobileView />
             </div>
           </div>
         )}

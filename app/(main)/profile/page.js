@@ -1,12 +1,9 @@
- 
-import UserProfile from "@/components/UserProfile";
+import UserProfile from "@/components/features/UserProfile";
 
-const profile = () => {
-  return (
-    <div>
-      <UserProfile />
-    </div>
-  );
-};
+const profile = () => (
+  <div>
+    <UserProfile />
+  </div>
+);
 
 export default profile;

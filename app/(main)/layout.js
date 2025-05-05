@@ -1,7 +1,7 @@
 "use client";
-import Header from "@/components/Header";
-import SubHeader from "@/components/SubHeader";
-import PageHeader from "@/components/PageHeader";
+import Header from "@/components/layout/Header";
+import PageHeader from "@/components/layout/PageHeader";
+import SubHeader from "@/components/layout/SubHeader";
 
 export default function MainLayout({ children }) {
   return (

@@ -5,7 +5,7 @@ export function getNavigationInfo(pathname) {
 
   // Remove leading slash and split path
   const segments = pathname.slice(1).split("/");
-  
+
   let currentConfig = navigationConfig;
   let title = "";
   let breadcrumbs = [{ label: "Home", url: "/" }];
@@ -15,10 +15,10 @@ export function getNavigationInfo(pathname) {
   for (let i = 0; i < segments.length; i++) {
     const segment = segments[i];
     currentPath += `/${segment}`;
-    
+
     // Check if we have a configuration for this segment
     let segmentConfig = currentConfig[segment];
-    
+
     // If not direct match, check if parent has children
     if (!segmentConfig && currentConfig.children) {
       segmentConfig = currentConfig.children[segment];
@@ -44,15 +44,15 @@ export function getNavigationInfo(pathname) {
           url: currentPath,
         });
       }
-      
+
       currentConfig = segmentConfig.children || {};
     } else {
       // Fallback for unmatched segments
       const label = segment
         .split("-")
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(" ");
-      
+
       title = title || label;
       breadcrumbs.push({
         label,

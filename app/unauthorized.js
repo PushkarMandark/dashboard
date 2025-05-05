@@ -1,7 +1,8 @@
 "use client";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Shield, AlertTriangle } from "lucide-react";
+import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
 
 export default function UnauthorizedPage() {
   return (
@@ -17,9 +18,7 @@ export default function UnauthorizedPage() {
           <h1 className="text-4xl font-bold text-gray-900">Unauthorized</h1>
           <div className="flex items-center justify-center gap-2 text-amber-600">
             <AlertTriangle className="h-5 w-5" />
-            <h2 className="text-xl font-semibold">
-              401 - Authentication Required
-            </h2>
+            <h2 className="text-xl font-semibold">401 - Authentication Required</h2>
           </div>
           <p className="text-muted-foreground">
             Please log in to access this page. This area is restricted to authorized users only.
@@ -28,9 +27,7 @@ export default function UnauthorizedPage() {
 
         <div className="pt-4">
           <Link href="/login">
-            <Button className="px-8 py-2">
-              Go to Login
-            </Button>
+            <Button className="px-8 py-2">Go to Login</Button>
           </Link>
         </div>
       </div>

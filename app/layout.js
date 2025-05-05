@@ -1,4 +1,5 @@
 import { Poppins } from "next/font/google";
+
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 
@@ -12,9 +13,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${poppins.variable} antialiased font-poppins bg-background min-h-screen`}>
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

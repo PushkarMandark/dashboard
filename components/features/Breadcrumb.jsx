@@ -1,7 +1,8 @@
-import Link from "next/link";
 import { ChevronRight, Home } from "lucide-react";
-import { generateBreadcrumbSchema } from "@/utils/breadcrumbSchema";
+import Link from "next/link";
 import Script from "next/script";
+
+import { generateBreadcrumbSchema } from "@/utils/breadcrumbSchema";
 
 const Breadcrumb = ({ items }) => {
   if (!items?.length) return null;
@@ -14,12 +15,10 @@ const Breadcrumb = ({ items }) => {
         <ol className="flex items-center space-x-2 text-sm">
           {items.map((item, index) => (
             <li key={item.url || index} className="flex items-center">
-              {index > 0 && (
-                <ChevronRight className="h-4 w-4 text-gray-400 mx-1" />
-              )}
-              
+              {index > 0 && <ChevronRight className="h-4 w-4 text-gray-400 mx-1" />}
+
               {index === 0 ? (
-                <Link 
+                <Link
                   href={item.url}
                   className="text-gray-500 hover:text-primary flex items-center"
                 >
@@ -31,10 +30,7 @@ const Breadcrumb = ({ items }) => {
                   {item.label}
                 </span>
               ) : (
-                <Link
-                  href={item.url}
-                  className="text-gray-500 hover:text-primary"
-                >
+                <Link href={item.url} className="text-gray-500 hover:text-primary">
                   {item.label}
                 </Link>
               )}
@@ -52,5 +48,3 @@ const Breadcrumb = ({ items }) => {
 };
 
 export default Breadcrumb;
-
-
