@@ -2,7 +2,7 @@
 import { ChevronDown, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { BiHomeCircle, BiCog } from "react-icons/bi";
+import { BiHomeCircle, BiCog, BiUser, BiEdit } from "react-icons/bi";
 import { BsCollection } from "react-icons/bs";
 
 export default function SubHeader({ showMobileMenu = false, isMobileView = false }) {
@@ -46,61 +46,51 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
       id: "dashboard",
       label: "Dashboard",
       icon: <BiHomeCircle />,
-      url: "/dashboard", // URL only because no children
+      url: "/dashboard",
     },
     {
-      id: "Profile",
-      label: "Profile",
+      id: "data-management",
+      label: "Data Management",
       icon: <BsCollection />,
       items: [
         {
-          label: "Profile",
-          items: [
-            {
-              label: "Active",
-              items: [
-                {
-                  label: "Critical",
-                  url: "/bugs/projects/active/critical",
-                },
-                {
-                  label: "High",
-                  url: "/bugs/projects/active/high",
-                },
-                {
-                  label: "Medium",
-                  url: "/bugs/projects/active/medium",
-                },
-              ],
-            },
-            {
-              label: "viewProfile",
-              url: "/profile",
-            },
-            {
-              label: "EditProfile",
-              url: "/profile/editProfile",
-            },
-          ],
+          label: "Products",
+          url: "/dashboard",
         },
         {
-          label: "My Assignments",
-          url: "/bugs/my-assignments",
+          label: "Users",
+          url: "/users",
         },
         {
-          label: "Reports",
-          items: [
-            {
-              label: "Analytics",
-              url: "/bugs/reports/analytics",
-            },
-            {
-              label: "Statistics",
-              url: "/bugs/reports/statistics",
-            },
-          ],
+          label: "Orders",
+          url: "/orders",
         },
       ],
+    },
+    {
+      id: "profile",
+      label: "Profile",
+      icon: <BiUser />,
+      items: [
+        {
+          label: "View Profile",
+          url: "/profile",
+        },
+        {
+          label: "Edit Profile",
+          url: "/profile/edit",
+        },
+        {
+          label: "Settings",
+          url: "/profile/settings",
+        },
+      ],
+    },
+    {
+      id: "forms",
+      label: "Forms",
+      icon: <BiEdit />,
+      url: "/forms",
     },
     {
       id: "settings",
@@ -108,34 +98,16 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
       icon: <BiCog />,
       items: [
         {
-          label: "Project Settings",
-          items: [
-            {
-              label: "Workflows",
-              url: "/settings/project/workflows",
-            },
-            {
-              label: "Labels",
-              url: "/settings/project/labels",
-            },
-            {
-              label: "Templates",
-              url: "/settings/project/templates",
-            },
-          ],
+          label: "General",
+          url: "/settings/general",
         },
         {
-          label: "User Management",
-          items: [
-            {
-              label: "Teams",
-              url: "/settings/users/teams",
-            },
-            {
-              label: "Permissions",
-              url: "/settings/users/permissions",
-            },
-          ],
+          label: "Security",
+          url: "/settings/security",
+        },
+        {
+          label: "Notifications",
+          url: "/settings/notifications",
         },
       ],
     },

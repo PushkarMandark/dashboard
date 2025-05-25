@@ -20,9 +20,9 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Bar, Line, Doughnut, PolarArea } from "react-chartjs-2";
 
-import Header from "@/components/layout/Header";
-import PageHeader from "@/components/layout/PageHeader";
-import SubHeader from "@/components/layout/SubHeader";
+import AppLayout from "@/components/layout/AppLayout";
+import { PageContainer, PageSection } from "@/components/ui/page-container";
+import { OrdersStatsCard, RevenueStatsCard, UsersStatsCard } from "@/components/ui/stats-card";
 
 // Register ChartJS components
 ChartJS.register(
@@ -154,91 +154,22 @@ export default function Home() {
   };
 
   return (
-    <>
-      {/* Add header and navigation for the homepage */}
-      <div className="sticky top-0 z-50 w-full bg-white">
-        <div className="w-full">
-          <Header />
-          <SubHeader isMobileView={false} />
-        </div>
-      </div>
-      <main className="container-custom py-6">
-        <PageHeader />
+    <AppLayout>
+      <PageContainer>
         <div className="space-y-6">
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-600 mb-1">Orders</p>
-                  <h3 className="text-2xl font-bold">1,235</h3>
-                </div>
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                  <svg
-                    className="w-6 h-6 text-blue-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                    />
-                  </svg>
-                </div>
-              </div>
+          <PageSection title="Overview" subtitle="Key metrics and performance indicators">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <OrdersStatsCard value="1,235" trend="+12% from last month" trendDirection="up" />
+              <RevenueStatsCard value="$35,723" trend="+8% from last month" trendDirection="up" />
+              <UsersStatsCard
+                title="Average Price"
+                value="$16.2"
+                trend="+5% from last month"
+                trendDirection="up"
+              />
             </div>
-
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-600 mb-1">Revenue</p>
-                  <h3 className="text-2xl font-bold">$35,723</h3>
-                </div>
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                  <svg
-                    className="w-6 h-6 text-purple-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-600 mb-1">Average Price</p>
-                  <h3 className="text-2xl font-bold">$16.2</h3>
-                </div>
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                  <svg
-                    className="w-6 h-6 text-green-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
+          </PageSection>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Left Column */}
@@ -363,7 +294,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </main>
-    </>
+      </PageContainer>
+    </AppLayout>
   );
 }

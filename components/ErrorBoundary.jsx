@@ -27,10 +27,9 @@ class ErrorBoundary extends Component {
 
     // Log to console in development
     if (process.env.NODE_ENV === "development") {
-      console.group("🚨 Error Boundary Caught Error");
+      console.warn("🚨 Error Boundary Caught Error");
       console.error("Error:", error);
       console.error("Error Info:", errorInfo);
-      console.groupEnd();
     }
   }
 

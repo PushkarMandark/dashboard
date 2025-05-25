@@ -79,29 +79,32 @@ const Header = () => {
     }
   };
 
-  const notifications = [
-    {
-      id: 1,
-      title: "Your order is placed",
-      desc: "Order #123456 has been placed successfully",
-      time: "3 min ago",
-      isRead: false,
-    },
-    {
-      id: 2,
-      title: "New message received",
-      desc: "You have a new message from John Doe",
-      time: "1 hour ago",
-      isRead: true,
-    },
-    {
-      id: 3,
-      title: "Server Limit Reached!",
-      desc: "Server has reached 80% of memory usage",
-      time: "2 hours ago",
-      isRead: false,
-    },
-  ];
+  const notifications = useMemo(
+    () => [
+      {
+        id: 1,
+        title: "Your order is placed",
+        desc: "Order #123456 has been placed successfully",
+        time: "3 min ago",
+        isRead: false,
+      },
+      {
+        id: 2,
+        title: "New message received",
+        desc: "You have a new message from John Doe",
+        time: "1 hour ago",
+        isRead: true,
+      },
+      {
+        id: 3,
+        title: "Server Limit Reached!",
+        desc: "Server has reached 80% of memory usage",
+        time: "2 hours ago",
+        isRead: false,
+      },
+    ],
+    [],
+  );
 
   // Memoize notification count
   const unreadNotificationCount = useMemo(

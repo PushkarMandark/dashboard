@@ -10,35 +10,35 @@
   }
   .container-custom {
     @apply mx-auto px-4;
-    
+
     /* Default for mobile (up to 640px) */
     width: 100%;
     max-width: 100%;
-    
+
     /* SM breakpoint (640px) */
     @media (min-width: 640px) {
       padding-left: 1.5rem;
       padding-right: 1.5rem;
     }
-    
+
     /* MD breakpoint (768px) */
     @media (min-width: 768px) {
       padding-left: 2rem;
       padding-right: 2rem;
     }
-    
+
     /* LG breakpoint (1024px) */
     @media (min-width: 1024px) {
       padding-left: 2.5rem;
       padding-right: 2.5rem;
     }
-    
+
     /* XL breakpoint (1280px) */
     @media (min-width: 1280px) {
       width: 85%;
       max-width: 1400px;
     }
-    
+
     /* 2XL breakpoint (1536px) */
     @media (min-width: 1536px) {
       width: 1400px;
@@ -70,7 +70,7 @@
     --ring: 228 78% 62%;  /* #556ee6 */
     --radius: 0.5rem;
   }
- 
+
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -110,7 +110,7 @@
 
 @layer base {
   /* Remove or comment out the previous button styles */
-  
+
   /* Add new specific styles for the desktop menu */
   .desktop-nav-button {
     color: #fff9; /* Default slightly transparent white */
@@ -120,6 +120,77 @@
   .desktop-nav-button:hover,
   .desktop-nav-button[aria-expanded="true"] {
     color: #ffff; /* Full white on hover/active */
+  }
+
+  /* Fix for PrimeReact search input with icon */
+  .p-input-icon-left > .p-inputtext {
+    padding-left: 2.5rem !important;
+  }
+
+  .p-input-icon-left > i {
+    left: 0.75rem;
+    color: #9ca3af;
+    z-index: 10;
+  }
+
+  /* Ensure proper spacing for custom search inputs */
+  .search-input-container {
+    position: relative;
+  }
+
+  .search-input-container .search-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .search-input-container input {
+    padding-left: 2.5rem !important;
+  }
+
+  /* DataTable row hover and click styles */
+  .p-datatable .p-datatable-tbody > tr {
+    transition: background-color 0.2s ease;
+  }
+
+  .p-datatable .p-datatable-tbody > tr:hover {
+    background-color: #f8f9fa !important;
+    cursor: pointer;
+  }
+
+  .p-datatable .p-datatable-tbody > tr.p-highlight {
+    background-color: #e3f2fd !important;
+  }
+
+  /* Dialog animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translate(-50%, -48%) scale(0.95);
+    }
+    to {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  [data-state="open"] {
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  [data-state="open"] .dialog-content {
+    animation: slideIn 0.2s ease-out;
   }
 }
 
