@@ -19,7 +19,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import SearchableSelect from "@/components/ui/SearchableSelect"; // Adjust path as needed
 import {
+  // Keep these Radix Select imports if you're still using them elsewhere
   Select,
   SelectContent,
   SelectItem,
@@ -29,6 +31,8 @@ import {
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+
+// Import your new SearchableSelect component
 
 // Validation schema using Zod
 const formSchema = z.object({
@@ -51,10 +55,24 @@ const formSchema = z.object({
   birthDate: z.string().min(1, "Birth date is required"),
   startDate: z.string().min(1, "Start date is required"),
 
-  // Select inputs
+  // Select inputs (using Radix Select)
   country: z.string().min(1, "Please select a country"),
   position: z.string().min(1, "Please select a position"),
   department: z.string().min(1, "Please select a department"),
+
+  // New field for searchable select (using react-select)
+  // For react-select, the value typically stored in state is the entire { value, label } object,
+  // but for Zod validation and final submission, you usually want just the 'value' string.
+  // So, we validate for an object that has a 'value' string.
+  favoriteFruit: z
+    .object({
+      value: z.string().min(1, "Fruit value is required"),
+      label: z.string().min(1, "Fruit label is required"),
+    })
+    .nullable()
+    .refine((val) => val !== null, {
+      message: "Please select your favorite fruit",
+    }),
 
   // Textarea
   bio: z
@@ -107,6 +125,7 @@ const FormsPage = () => {
       country: "",
       position: "",
       department: "",
+      favoriteFruit: null, // Initialize new field as null
       bio: "",
       comments: "",
       terms: false,
@@ -125,7 +144,12 @@ const FormsPage = () => {
   });
 
   const onSubmit = (data) => {
-    console.warn("Form Data:", data);
+    // When submitting, if using react-select, you typically want the 'value' property
+    const dataToSubmit = {
+      ...data,
+      favoriteFruit: data.favoriteFruit?.value, // Extract just the value
+    };
+    console.warn("Form Data:", dataToSubmit);
     console.warn("Form submitted successfully!");
 
     // Show success message
@@ -158,6 +182,28 @@ const FormsPage = () => {
     { value: "sales", label: "Sales" },
     { value: "hr", label: "Human Resources" },
     { value: "finance", label: "Finance" },
+  ];
+
+  // Dummy data for fruits (for the new searchable select)
+  const fruitOptions = [
+    { value: "apple", label: "Apple" },
+    { value: "banana", label: "Banana" },
+    { value: "orange", label: "Orange" },
+    { value: "grape", label: "Grape" },
+    { value: "strawberry", label: "Strawberry" },
+    { value: "blueberry", label: "Blueberry" },
+    { value: "raspberry", label: "Raspberry" },
+    { value: "pineapple", label: "Pineapple" },
+    { value: "mango", label: "Mango" },
+    { value: "kiwi", label: "Kiwi" },
+    { value: "watermelon", label: "Watermelon" },
+    { value: "peach", label: "Peach" },
+    { value: "pear", label: "Pear" },
+    { value: "plum", label: "Plum" },
+    { value: "cherry", label: "Cherry" },
+    { value: "lemon", label: "Lemon" },
+    { value: "lime", label: "Lime" },
+    { value: "avocado", label: "Avocado" },
   ];
 
   return (
@@ -412,6 +458,28 @@ const FormsPage = () => {
                   )}
                 />
               </div>
+
+              {/* New Searchable Select for Fruits */}
+              <FormField
+                control={form.control}
+                name="favoriteFruit"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Favorite Fruit *</FormLabel>
+                    <FormControl>
+                      <SearchableSelect
+                        options={fruitOptions}
+                        value={field.value} // Pass the entire object
+                        onChange={field.onChange} // React Hook Form handles this
+                        placeholder="Select your favorite fruit"
+                        isClearable // Allow clearing the selection
+                      />
+                    </FormControl>
+                    <FormDescription>Search and select your preferred fruit.</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
               {/* Employment Type Radio Group */}
               <FormField
