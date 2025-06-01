@@ -65,6 +65,10 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
           label: "Orders",
           url: "/orders",
         },
+        {
+          label: "Data Table",
+          url: "/dataTable",
+        },
       ],
     },
     {

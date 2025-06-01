@@ -314,7 +314,7 @@ const DataTable = ({
   const header = renderHeader();
 
   return (
-    <div className={`card p-6 bg-white rounded-lg shadow-sm ${className}`}>
+    <div className={`card p-2 bg-white rounded-lg shadow-sm ${className}`}>
       <PrimeDataTable
         value={data}
         paginator={paginator}
