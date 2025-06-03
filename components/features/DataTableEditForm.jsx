@@ -1,6 +1,6 @@
 "use client";
 
-import { Save, X, Plus, Minus } from "lucide-react"; // Import Plus and Minus icons
+import { Save, X } from "lucide-react"; // Import Plus and Minus icons
 import React, { useState, useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -133,35 +133,35 @@ const DataTableEditForm = ({ product, isOpen, onClose, onSave, mode = "edit" }) 
     }));
   };
 
-  const handleAddExtraField = () => {
-    setFormData((prev) => ({
-      ...prev,
-      extraFields: [
-        ...prev.extraFields,
-        {
-          firstName: "",
-          lastName: "",
-          email: "",
-          phone: "",
-          address: "",
-          city: "",
-          state: "",
-          zip: "",
-          country: "",
-        },
-      ],
-    }));
-  };
+  // const handleAddExtraField = () => {
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     extraFields: [
+  //       ...prev.extraFields,
+  //       {
+  //         firstName: "",
+  //         lastName: "",
+  //         email: "",
+  //         phone: "",
+  //         address: "",
+  //         city: "",
+  //         state: "",
+  //         zip: "",
+  //         country: "",
+  //       },
+  //     ],
+  //   }));
+  // };
 
-  const handleRemoveExtraField = (index) => {
-    // Ensure there's always at least one extra field
-    if (formData.extraFields.length > 1) {
-      setFormData((prev) => ({
-        ...prev,
-        extraFields: prev.extraFields.filter((_, i) => i !== index),
-      }));
-    }
-  };
+  // const handleRemoveExtraField = (index) => {
+  //   // Ensure there's always at least one extra field
+  //   if (formData.extraFields.length > 1) {
+  //     setFormData((prev) => ({
+  //       ...prev,
+  //       extraFields: prev.extraFields.filter((_, i) => i !== index),
+  //     }));
+  //   }
+  // };
 
   const validateForm = () => {
     const newErrors = {};
@@ -443,7 +443,7 @@ const DataTableEditForm = ({ product, isOpen, onClose, onSave, mode = "edit" }) 
                 />
               </div>
 
-              {!isViewMode && formData.extraFields.length > 1 && (
+              {/* {!isViewMode && formData.extraFields.length > 1 && (
                 <div className="col-span-2 flex justify-end">
                   <Button
                     type="button"
@@ -455,15 +455,15 @@ const DataTableEditForm = ({ product, isOpen, onClose, onSave, mode = "edit" }) 
                     Remove Field Set
                   </Button>
                 </div>
-              )}
+              )} */}
             </div>
           ))}
-          {!isViewMode && (
+          {/* {!isViewMode && (
             <Button type="button" onClick={handleAddExtraField} className="mt-4">
               <Plus className="w-4 h-4 mr-2" />
               Add More Fields
             </Button>
-          )}
+          )} */}
         </div>
 
         <DialogFooter>

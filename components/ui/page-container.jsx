@@ -18,9 +18,9 @@ const PageContainer = ({
       case "sm":
         return "p-4";
       case "lg":
-        return "p-8";
+        return "";
       default:
-        return "p-6";
+        return "";
     }
   };
 

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e827dea2-17fe-4130-a739-0b385ee9cbfc" name="Changes" comment="login page design changed" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JSX File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;PushkarMandark&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/PushkarMandark/dashboard.git&quot;,
+    &quot;accountId&quot;: &quot;a675323d-df76-4f8f-88de-16b007367c83&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2xa7eigV2TfNyLuBe02VDq1CUh8" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Code/dashboard&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;D:\\Code\\dashboard\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="ReactDesignerToolWindowState">
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.intellij.reactbuddy.reactComponents" value="false" />
+        <entry key="com.intellij.reactbuddy.reactInspector" value="false" />
+        <entry key="com.intellij.reactbuddy.storybook" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Code\dashboard\components\features" />
+      <recent name="D:\Code\dashboard\app\(main)\dataTable" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Code\dashboard\public\images" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-WS-243.23654.157" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e827dea2-17fe-4130-a739-0b385ee9cbfc" name="Changes" comment="" />
+      <created>1748164427277</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1748164427277</updated>
+      <workItem from="1748164428406" duration="4622000" />
+      <workItem from="1748241049187" duration="13000" />
+      <workItem from="1748331171975" duration="2328000" />
+      <workItem from="1748783161038" duration="894000" />
+      <workItem from="1748784073567" duration="90000" />
+      <workItem from="1748784173638" duration="776000" />
+      <workItem from="1748784966432" duration="1871000" />
+      <workItem from="1748786871826" duration="6357000" />
+      <workItem from="1748838685977" duration="592000" />
+      <workItem from="1748926428874" duration="737000" />
+      <workItem from="1748929786301" duration="51000" />
+    </task>
+    <task id="LOCAL-00001" summary="form">
+      <option name="closed" value="true" />
+      <created>1748169916550</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1748169916550</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added new page dataTable with big popuip and dynamic fields">
+      <option name="closed" value="true" />
+      <created>1748786824559</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1748786824559</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added select with search option">
+      <option name="closed" value="true" />
+      <created>1748788710858</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1748788710858</updated>
+    </task>
+    <task id="LOCAL-00004" summary="login page design changed">
+      <option name="closed" value="true" />
+      <created>1748790110280</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1748790110280</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="form" />
+    <MESSAGE value="added new page dataTable with big popuip and dynamic fields" />
+    <MESSAGE value="added select with search option" />
+    <MESSAGE value="login page design changed" />
+    <option name="LAST_COMMIT_MESSAGE" value="login page design changed" />
+  </component>
+</project>
