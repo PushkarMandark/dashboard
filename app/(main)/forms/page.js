@@ -19,7 +19,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import SearchableSelect from "@/components/ui/SearchableSelect"; // Adjust path as needed
+// import SearchableSelect from "@/components/ui/SearchableSelect"; // Adjust path as needed
+import SearchableSelectWithAPI from "@/components/ui/SearchableSelectWithAPI";
 import {
   // Keep these Radix Select imports if you're still using them elsewhere
   Select,
@@ -185,26 +186,26 @@ const FormsPage = () => {
   ];
 
   // Dummy data for fruits (for the new searchable select)
-  const fruitOptions = [
-    { value: "apple", label: "Apple" },
-    { value: "banana", label: "Banana" },
-    { value: "orange", label: "Orange" },
-    { value: "grape", label: "Grape" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "blueberry", label: "Blueberry" },
-    { value: "raspberry", label: "Raspberry" },
-    { value: "pineapple", label: "Pineapple" },
-    { value: "mango", label: "Mango" },
-    { value: "kiwi", label: "Kiwi" },
-    { value: "watermelon", label: "Watermelon" },
-    { value: "peach", label: "Peach" },
-    { value: "pear", label: "Pear" },
-    { value: "plum", label: "Plum" },
-    { value: "cherry", label: "Cherry" },
-    { value: "lemon", label: "Lemon" },
-    { value: "lime", label: "Lime" },
-    { value: "avocado", label: "Avocado" },
-  ];
+  // const fruitOptions = [
+  //   { value: "apple", label: "Apple" },
+  //   { value: "banana", label: "Banana" },
+  //   { value: "orange", label: "Orange" },
+  //   { value: "grape", label: "Grape" },
+  //   { value: "strawberry", label: "Strawberry" },
+  //   { value: "blueberry", label: "Blueberry" },
+  //   { value: "raspberry", label: "Raspberry" },
+  //   { value: "pineapple", label: "Pineapple" },
+  //   { value: "mango", label: "Mango" },
+  //   { value: "kiwi", label: "Kiwi" },
+  //   { value: "watermelon", label: "Watermelon" },
+  //   { value: "peach", label: "Peach" },
+  //   { value: "pear", label: "Pear" },
+  //   { value: "plum", label: "Plum" },
+  //   { value: "cherry", label: "Cherry" },
+  //   { value: "lemon", label: "Lemon" },
+  //   { value: "lime", label: "Lime" },
+  //   { value: "avocado", label: "Avocado" },
+  // ];
 
   return (
     <div className="space-y-6">
@@ -465,17 +466,20 @@ const FormsPage = () => {
                 name="favoriteFruit"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Favorite Fruit *</FormLabel>
+                    <FormLabel>Favorite Recipe *</FormLabel>
                     <FormControl>
-                      <SearchableSelect
-                        options={fruitOptions}
-                        value={field.value} // Pass the entire object
-                        onChange={field.onChange} // React Hook Form handles this
-                        placeholder="Select your favorite fruit"
-                        isClearable // Allow clearing the selection
+                      <SearchableSelectWithAPI
+                        apiEndpoint="https://dummyjson.com/recipes/search"
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeholder="Search your favorite recipe"
+                        isClearable
+                        // Optional: You can tweak minLength and debounce if needed
                       />
                     </FormControl>
-                    <FormDescription>Search and select your preferred fruit.</FormDescription>
+                    <FormDescription>
+                      This dropdown fetches recipes as you type from a live API.
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

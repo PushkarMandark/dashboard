@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e827dea2-17fe-4130-a739-0b385ee9cbfc" name="Changes" comment="login page design changed" />
+    <list default="true" id="e827dea2-17fe-4130-a739-0b385ee9cbfc" name="Changes" comment="Added dropdown component with api search">
+      <change afterPath="$PROJECT_DIR$/components/ui/SearchableSelectWithAPI.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(main)/forms/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/(main)/forms/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,6 +38,9 @@
     &quot;accountId&quot;: &quot;a675323d-df76-4f8f-88de-16b007367c83&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -48,7 +57,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Code/dashboard&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Code/dashboard/components/ui&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -56,6 +65,7 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;D:\\Code\\dashboard\\node_modules\\prettier&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.3.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -70,6 +80,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Code\dashboard\components\ui" />
       <recent name="D:\Code\dashboard\components\features" />
       <recent name="D:\Code\dashboard\app\(main)\dataTable" />
     </key>
@@ -103,6 +114,9 @@
       <workItem from="1748838685977" duration="592000" />
       <workItem from="1748926428874" duration="737000" />
       <workItem from="1748929786301" duration="51000" />
+      <workItem from="1749442565666" duration="10000" />
+      <workItem from="1749660492971" duration="5982000" />
+      <workItem from="1749702366386" duration="296000" />
     </task>
     <task id="LOCAL-00001" summary="form">
       <option name="closed" value="true" />
@@ -147,6 +161,7 @@
     <MESSAGE value="added new page dataTable with big popuip and dynamic fields" />
     <MESSAGE value="added select with search option" />
     <MESSAGE value="login page design changed" />
-    <option name="LAST_COMMIT_MESSAGE" value="login page design changed" />
+    <MESSAGE value="Added dropdown component with api search" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added dropdown component with api search" />
   </component>
 </project>
