@@ -2,7 +2,7 @@
 import { ChevronDown, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { BiHomeCircle, BiCog, BiUser, BiEdit } from "react-icons/bi";
+import { BiHomeCircle, BiCog, BiEdit } from "react-icons/bi";
 import { BsCollection } from "react-icons/bs";
 
 export default function SubHeader({ showMobileMenu = false, isMobileView = false }) {
@@ -40,7 +40,7 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
     setActiveChildMenu(null);
   };
 
-  // Updated menu structure with URLs
+  // Updated menu structure with 3 levels of navigation
   const menuItems = [
     {
       id: "dashboard",
@@ -55,46 +55,91 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
       items: [
         {
           label: "Products",
-          url: "/dashboard",
+          url: "/products",
+          items: [
+            {
+              label: "All Products",
+              url: "/products/all",
+            },
+            {
+              label: "Categories",
+              url: "/products/categories",
+            },
+            {
+              label: "Inventory",
+              url: "/products/inventory",
+            },
+          ],
         },
         {
           label: "Users",
-          url: "/users",
+          items: [
+            {
+              label: "All Users",
+              url: "/users/all",
+            },
+            {
+              label: "Roles",
+              url: "/users/roles",
+            },
+            {
+              label: "Permissions",
+              url: "/users/permissions",
+            },
+          ],
         },
         {
           label: "Orders",
           url: "/orders",
-        },
-        {
-          label: "Data Table",
-          url: "/dataTable",
+          items: [
+            {
+              label: "Recent Orders",
+              url: "/orders/recent",
+            },
+            {
+              label: "Returns",
+              url: "/orders/returns",
+            },
+          ],
         },
       ],
     },
     {
-      id: "profile",
-      label: "Profile",
-      icon: <BiUser />,
+      id: "reports",
+      label: "Reports",
+      icon: <BiEdit />,
       items: [
         {
-          label: "View Profile",
-          url: "/profile",
+          label: "Sales",
+          items: [
+            {
+              label: "Daily Sales",
+              url: "/reports/sales/daily",
+            },
+            {
+              label: "Monthly Sales",
+              url: "/reports/sales/monthly",
+            },
+            {
+              label: "Yearly Sales",
+              url: "/reports/sales/yearly",
+            },
+          ],
         },
         {
-          label: "Edit Profile",
-          url: "/profile/edit",
-        },
-        {
-          label: "Settings",
-          url: "/profile/settings",
+          label: "Inventory",
+          items: [
+            {
+              label: "Stock Levels",
+              url: "/reports/inventory/stock",
+            },
+            {
+              label: "Low Stock",
+              url: "/reports/inventory/low-stock",
+            },
+          ],
         },
       ],
-    },
-    {
-      id: "forms",
-      label: "Forms",
-      icon: <BiEdit />,
-      url: "/forms",
     },
     {
       id: "settings",
@@ -103,15 +148,42 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
       items: [
         {
           label: "General",
-          url: "/settings/general",
+          items: [
+            {
+              label: "Site Settings",
+              url: "/settings/general/site",
+            },
+            {
+              label: "Theme",
+              url: "/settings/general/theme",
+            },
+          ],
         },
         {
           label: "Security",
-          url: "/settings/security",
+          items: [
+            {
+              label: "Password Policy",
+              url: "/settings/security/password",
+            },
+            {
+              label: "Two-Factor Auth",
+              url: "/settings/security/2fa",
+            },
+          ],
         },
         {
           label: "Notifications",
-          url: "/settings/notifications",
+          items: [
+            {
+              label: "Email Notifications",
+              url: "/settings/notifications/email",
+            },
+            {
+              label: "Push Notifications",
+              url: "/settings/notifications/push",
+            },
+          ],
         },
       ],
     },
@@ -151,7 +223,8 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
   // const shouldShow = isMobileView ? showMobileMenu : true;
 
   const renderDesktopMenuItem = (menu) => {
-    const hasChildren = menu.items && menu.items.length > 0;
+    if (!menu) return null;
+    const hasChildren = menu.items && Array.isArray(menu.items) && menu.items.length > 0;
 
     const buttonContent = (
       <>
@@ -172,7 +245,6 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
           <Link
             href={menu.url}
             className="desktop-nav-button flex items-center gap-2 px-4 py-4 hover:bg-primary-dark"
-            legacyBehavior={false}
           >
             {buttonContent}
           </Link>
@@ -195,7 +267,9 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
   };
 
   const renderDesktopSubMenuItem = (subMenu, parentMenu) => {
-    const hasChildren = subMenu.items && subMenu.items.length > 0;
+    if (!subMenu) return null;
+
+    const hasChildren = subMenu.items && Array.isArray(subMenu.items) && subMenu.items.length > 0;
 
     const buttonContent = (
       <>
@@ -222,7 +296,6 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
           <Link
             href={subMenu.url}
             className="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100"
-            legacyBehavior={false}
           >
             {buttonContent}
           </Link>
@@ -244,7 +317,9 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
   };
 
   const renderDesktopChildMenuItem = (childMenu) => {
-    const hasChildren = childMenu.items && childMenu.items.length > 0;
+    if (!childMenu) return null;
+    const hasChildren =
+      childMenu.items && Array.isArray(childMenu.items) && childMenu.items.length > 0;
 
     const buttonContent = (
       <>
@@ -270,7 +345,6 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
           <Link
             href={childMenu.url}
             className="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100"
-            legacyBehavior={false}
           >
             {buttonContent}
           </Link>
@@ -283,12 +357,7 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
         {hasChildren && activeChildMenu === childMenu.label && (
           <div className="absolute top-0 left-full w-64 bg-white shadow-lg">
             {childMenu.items.map((item) => (
-              <Link
-                key={item.label}
-                href={item.url}
-                className="block px-4 py-2 hover:bg-gray-100"
-                legacyBehavior={false}
-              >
+              <Link key={item.label} href={item.url} className="block px-4 py-2 hover:bg-gray-100">
                 {item.label}
               </Link>
             ))}
@@ -298,118 +367,129 @@ export default function SubHeader({ showMobileMenu = false, isMobileView = false
     );
   };
 
+  const renderMenuItems = () => {
+    try {
+      if (!Array.isArray(menuItems)) {
+        console.error("menuItems is not an array");
+        return null;
+      }
+      return menuItems.map((menu) => renderDesktopMenuItem(menu));
+    } catch (error) {
+      console.error("Error rendering menu items:", error);
+      return null;
+    }
+  };
+
+  // Safe render function for mobile menu items
+  const renderMobileMenuItems = () => {
+    try {
+      if (!Array.isArray(menuItems) || menuItems.length === 0) {
+        return <div className="px-4 py-3 text-sm text-gray-300">No menu items available</div>;
+      }
+
+      return menuItems.map((menu) => {
+        if (!menu) return null;
+
+        const hasItems = Array.isArray(menu.items) && menu.items.length > 0;
+        const isActive = mobileActiveMenus.level1 === menu.id;
+
+        return (
+          <div
+            key={menu.id || Math.random().toString(36).substr(2, 9)}
+            className="border-b border-primary/20"
+          >
+            {menu.url && !hasItems ? (
+              <Link href={menu.url} className="flex items-center justify-between w-full px-4 py-3">
+                <span className="flex items-center gap-2">
+                  {menu.icon && <span>{menu.icon}</span>}
+                  <span>{menu.label || "Unnamed Item"}</span>
+                </span>
+              </Link>
+            ) : (
+              <>
+                <button
+                  className="flex items-center justify-between w-full px-4 py-3"
+                  onClick={() => handleMobileMenuClick("level1", menu.id)}
+                >
+                  <span className="flex items-center gap-2">
+                    {menu.icon && <span>{menu.icon}</span>}
+                    <span>{menu.label || "Unnamed Item"}</span>
+                  </span>
+                  {hasItems && (
+                    <ChevronDown
+                      className={`h-4 w-4 transition-transform ${isActive ? "rotate-180" : ""}`}
+                    />
+                  )}
+                </button>
+
+                {isActive && hasItems && (
+                  <div className="bg-primary/10">{renderMobileSubMenuItems(menu.items, 2)}</div>
+                )}
+              </>
+            )}
+          </div>
+        );
+      });
+    } catch (error) {
+      console.error("Error rendering mobile menu:", error);
+      return (
+        <div className="px-4 py-3 text-sm text-red-300">
+          Error loading menu. Please try again later.
+        </div>
+      );
+    }
+  };
+
+  // Recursive function to render submenu items
+  const renderMobileSubMenuItems = (items, level) => {
+    if (!Array.isArray(items) || items.length === 0) return null;
+
+    return items.map((item, index) => {
+      if (!item) return null;
+
+      const hasChildren = Array.isArray(item.items) && item.items.length > 0;
+      const isActive = mobileActiveMenus[`level${level}`] === item.label;
+      const nextLevel = level + 1;
+      const paddingLeft = 4 + (level - 1) * 2; // Increase padding for each level
+
+      return (
+        <div key={`${item.label || "item"}-${index}`}>
+          <button
+            className={`flex items-center justify-between w-full px-${paddingLeft} py-2`}
+            onClick={() => handleMobileMenuClick(`level${level}`, item.label)}
+          >
+            <span>{item.label || "Unnamed Item"}</span>
+            {hasChildren && (
+              <ChevronDown
+                className={`h-4 w-4 transition-transform ${isActive ? "rotate-180" : ""}`}
+              />
+            )}
+          </button>
+
+          {isActive && hasChildren && (
+            <div className={`bg-primary/${10 * level}`}>
+              {renderMobileSubMenuItems(item.items, nextLevel)}
+            </div>
+          )}
+        </div>
+      );
+    });
+  };
+
   return (
     <div className={`w-full bg-primary text-white ${isMobileView ? "lg:hidden" : ""}`}>
       <div className="container-custom">
         {/* Desktop Navigation - Only show when not in mobile view */}
         {!isMobileView && (
           <nav className="hidden lg:block">
-            <div className="flex">{menuItems.map(renderDesktopMenuItem)}</div>
+            <div className="flex">{renderMenuItems()}</div>
           </nav>
         )}
 
         {/* Mobile Navigation - Only show when in mobile view and showMobileMenu is true */}
         {isMobileView && showMobileMenu && (
           <nav className="lg:hidden">
-            <div className="border-t border-primary/20">
-              {menuItems.map((menu) => (
-                <div key={menu.id} className="border-b border-primary/20">
-                  {menu.url && !menu.items?.length ? (
-                    <Link
-                      href={menu.url}
-                      className="flex items-center justify-between w-full px-4 py-3"
-                    >
-                      <span className="flex items-center gap-2">
-                        <span>{menu.icon}</span>
-                        <span>{menu.label}</span>
-                      </span>
-                    </Link>
-                  ) : (
-                    <>
-                      <button
-                        className="flex items-center justify-between w-full px-4 py-3"
-                        onClick={() => handleMobileMenuClick("level1", menu.id)}
-                      >
-                        <span className="flex items-center gap-2">
-                          <span>{menu.icon}</span>
-                          <span>{menu.label}</span>
-                        </span>
-                        <ChevronDown
-                          className={`h-4 w-4 transition-transform ${mobileActiveMenus.level1 === menu.id ? "rotate-180" : ""}`}
-                        />
-                      </button>
-
-                      {mobileActiveMenus.level1 === menu.id && (
-                        <div className="bg-primary/10">
-                          {menu.items.map((subMenu) => (
-                            <div key={subMenu.label}>
-                              {/* Level 2 */}
-                              <button
-                                className="flex items-center justify-between w-full px-6 py-2"
-                                onClick={() => handleMobileMenuClick("level2", subMenu.label)}
-                              >
-                                <span>{subMenu.label}</span>
-                                <ChevronDown
-                                  className={`h-4 w-4 transition-transform ${mobileActiveMenus.level2 === subMenu.label ? "rotate-180" : ""}`}
-                                />
-                              </button>
-
-                              {mobileActiveMenus.level2 === subMenu.label && (
-                                <div className="bg-primary/20">
-                                  {subMenu.items.map((childMenu) => (
-                                    <div key={childMenu.label}>
-                                      {/* Level 3 */}
-                                      <button
-                                        className="flex items-center justify-between w-full px-8 py-2"
-                                        onClick={() =>
-                                          handleMobileMenuClick("level3", childMenu.label)
-                                        }
-                                      >
-                                        <span>{childMenu.label}</span>
-                                        <ChevronDown
-                                          className={`h-4 w-4 transition-transform ${mobileActiveMenus.level3 === childMenu.label ? "rotate-180" : ""}`}
-                                        />
-                                      </button>
-
-                                      {mobileActiveMenus.level3 === childMenu.label && (
-                                        <div className="bg-primary/30">
-                                          {childMenu.children.map((item) => (
-                                            <div key={item}>
-                                              {/* Level 4 (Final Items) */}
-                                              <button
-                                                className="flex items-center justify-between w-full px-10 py-2"
-                                                onClick={() =>
-                                                  handleMobileMenuClick("level4", item)
-                                                }
-                                              >
-                                                <span>{item}</span>
-                                              </button>
-
-                                              {mobileActiveMenus.level4 === item && (
-                                                <Link
-                                                  href={`/${menu.id}/${subMenu.label.toLowerCase()}/${childMenu.label.toLowerCase()}/${item.toLowerCase().replace(/\s+/g, "-")}`}
-                                                  className="block px-12 py-2 bg-primary/40 hover:bg-primary/50"
-                                                >
-                                                  Go to {item}
-                                                </Link>
-                                              )}
-                                            </div>
-                                          ))}
-                                        </div>
-                                      )}
-                                    </div>
-                                  ))}
-                                </div>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </>
-                  )}
-                </div>
-              ))}
-            </div>
+            <div className="border-t border-primary/20">{renderMobileMenuItems()}</div>
           </nav>
         )}
       </div>
